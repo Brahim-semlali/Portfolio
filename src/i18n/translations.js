@@ -4,6 +4,7 @@ export const translations = {
       home: "Accueil",
       about: "À propos",
       projects: "Projets",
+      experience: "Expérience",
       certifications: "Certifications",
       resume: "CV",
     },
@@ -12,7 +13,7 @@ export const translations = {
       hello: "Bonjour, je suis",
       iAm: "",
       lead:
-        "Développeur Full Stack & étudiant M2 en Ingénierie des Systèmes d'Information. Je conçois des applications web fiables, de l'interface jusqu'à l'API.",
+          "Développeur Full Stack & étudiant M2 en Ingénierie des Systèmes d'Information. Je conçois des applications web fiables, de l'interface jusqu'à l'API.",
       ctaProjects: "Voir les projets",
       ctaResume: "Télécharger le CV",
       statFocus: "Profil",
@@ -31,9 +32,9 @@ export const translations = {
       introTitle: "Laissez-moi",
       introHighlight: "me présenter",
       intro1:
-        "Étudiant en dernière année de Master Ingénierie des Systèmes d'Information, passionné par le développement informatique et les nouvelles technologies. Je possède des compétences solides en développement web, mobile et desktop, ainsi qu'en conception de systèmes d'information et gestion de bases de données.",
+          "Étudiant en dernière année de Master Ingénierie des Systèmes d'Information, passionné par le développement informatique et les nouvelles technologies. Je possède des compétences solides en développement web, mobile et desktop, ainsi qu'en conception de systèmes d'information et gestion de bases de données.",
       intro2:
-        "Je maîtrise notamment Java, JavaScript, Python, React.js, Django, Spring Boot et FastAPI, avec une expérience concrète sur des projets de gestion et de plateformes e-commerce.",
+          "Je maîtrise notamment Java, JavaScript, Python, React.js, Django, Spring Boot et FastAPI, avec une expérience concrète sur des projets de gestion et de plateformes e-commerce.",
       intro3a: "Rigoureux, autonome et orienté résolution de problèmes, je suis actuellement à la recherche d'une ",
       intro3b: "opportunité de stage",
       intro3c: " pour contribuer à des projets innovants.",
@@ -58,16 +59,16 @@ export const translations = {
       school: "à la Faculté des Sciences Semlalia.",
       experience: "Expériences professionnelles :",
       exp1:
-        "Titrit Technologies — Stage PFE Full Stack (04/2025 – 06/2025) : portail de gestion du cycle de vie des tokens de paiement bancaire (React.js, Django, PostgreSQL, JWT).",
+          "Titrit Technologies — Stage PFE Full Stack (04/2025 – 06/2025) : portail de gestion du cycle de vie des tokens de paiement bancaire (React.js, Django, PostgreSQL, JWT).",
       exp2:
-        "Vactis — Stage Full Stack (06/2026 – 08/2026) : système de suivi de la relation médecins-laboratoire (Spring Boot, React, PostgreSQL, JWT).",
+          "Vactis — Stage Full Stack (06/2026 – 08/2026) : système de suivi de la relation médecins-laboratoire (Spring Boot, React, PostgreSQL, JWT).",
       education: "Formation :",
       edu1: "Master ISI — Faculté des Sciences Semlalia (2025 – 2027)",
       edu2: "Licence Pro. Génie Informatique — FPT Taroudant (2024 – 2025), Mention Bien",
       edu3: "DEUP Génie Informatique — FPT Taroudant (2022 – 2024), Mention Assez Bien",
       languages: "Langues :",
       languagesText:
-        "Arabe (langue maternelle), Français (bon niveau), Anglais (intermédiaire)",
+          "Arabe (langue maternelle), Français (bon niveau), Anglais (intermédiaire)",
       quote: "Rigoureux, autonome et orienté résolution de problèmes.",
       stackTag: "Stack",
       skills: "Compétences",
@@ -83,27 +84,37 @@ export const translations = {
       title: "Mes",
       titleHighlight: "Projets",
       subtitle:
-        "Tous mes dépôts GitHub, classés par ordre de priorité — des projets professionnels aux réalisations académiques.",
+          "Tous mes dépôts GitHub, classés par ordre de priorité — des projets professionnels aux réalisations académiques.",
       loading: "Chargement des projets depuis GitHub…",
       error: "Impossible de charger les projets GitHub. Réessayez plus tard.",
       demo: "Demo",
+    },
+    experience: {
+      tag: "Parcours",
+      title: "Mon",
+      titleHighlight: "Expérience",
+      subtitle: "Mes stages et projets réalisés en entreprise.",
+      seeMore: "Voir le détail →",
+      tasksTitle: "Tâches réalisées",
+      stackTitle: "Stack technique",
+      previewTitle: "Aperçu",
     },
     certifications: {
       tag: "Certifications",
       title: "Mes",
       titleHighlight: "Certifications",
       subtitle:
-        "Formations certifiées en bases de données et méthodologies de recherche, avec liens de vérification officiels.",
+          "Formations certifiées en bases de données et méthodologies de recherche, avec liens de vérification officiels.",
       verify: "Vérifier le certificat",
       items: {
         "mysql-coursera": {
           description:
-            "Modélisation, gestion et optimisation de bases de données MySQL.",
+              "Modélisation, gestion et optimisation de bases de données MySQL.",
           skills: ["MySQL", "SQL", "Modélisation"],
         },
         "research-qmul": {
           description:
-            "Conception d'études, collecte et analyse de données, rigueur scientifique.",
+              "Conception d'études, collecte et analyse de données, rigueur scientifique.",
           skills: ["Recherche", "Analyse", "Méthodologie"],
         },
       },
@@ -129,6 +140,7 @@ export const translations = {
       home: "Home",
       about: "About",
       projects: "Projects",
+      experience: "Experience",
       certifications: "Certifications",
       resume: "Resume",
     },
@@ -137,7 +149,7 @@ export const translations = {
       hello: "Hello, I'm",
       iAm: "",
       lead:
-        "Full Stack developer and M2 student in Information Systems Engineering. I build reliable web applications from interface to API.",
+          "Full Stack developer and M2 student in Information Systems Engineering. I build reliable web applications from interface to API.",
       ctaProjects: "View projects",
       ctaResume: "Download CV",
       statFocus: "Profile",
@@ -156,11 +168,11 @@ export const translations = {
       introTitle: "Let me",
       introHighlight: "introduce myself",
       intro1:
-        "Final-year Master's student in Information Systems Engineering, passionate about software development and new technologies. I have strong skills in web, mobile and desktop development, as well as information systems design and database management.",
+          "Final-year Master's student in Information Systems Engineering, passionate about software development and new technologies. I have strong skills in web, mobile and desktop development, as well as information systems design and database management.",
       intro2:
-        "I work with Java, JavaScript, Python, React.js, Django, Spring Boot and FastAPI, with hands-on experience on management apps and e-commerce platforms.",
+          "I work with Java, JavaScript, Python, React.js, Django, Spring Boot and FastAPI, with hands-on experience on management apps and e-commerce platforms.",
       intro3a:
-        "Rigorous, autonomous and problem-solving oriented, I am currently looking for an ",
+          "Rigorous, autonomous and problem-solving oriented, I am currently looking for an ",
       intro3b: "internship opportunity",
       intro3c: " to contribute to innovative projects.",
       contactTag: "Contact",
@@ -184,9 +196,9 @@ export const translations = {
       school: "at the Faculty of Sciences Semlalia.",
       experience: "Professional experience:",
       exp1:
-        "Titrit Technologies — Final-year internship, Full Stack (04/2025 – 06/2025): payment token lifecycle management portal (React.js, Django, PostgreSQL, JWT).",
+          "Titrit Technologies — Final-year internship, Full Stack (04/2025 – 06/2025): payment token lifecycle management portal (React.js, Django, PostgreSQL, JWT).",
       exp2:
-        "Vactis — Full Stack internship (06/2026 – 08/2026): physician–lab relationship tracking system (Spring Boot, React, PostgreSQL, JWT).",
+          "Vactis — Full Stack internship (06/2026 – 08/2026): physician–lab relationship tracking system (Spring Boot, React, PostgreSQL, JWT).",
       education: "Education:",
       edu1: "Master's in ISI — Faculty of Sciences Semlalia (2025 – 2027)",
       edu2: "Professional Bachelor's in Computer Engineering — FPT Taroudant (2024 – 2025), Honors: Bien",
@@ -208,27 +220,37 @@ export const translations = {
       title: "My",
       titleHighlight: "Projects",
       subtitle:
-        "All my GitHub repositories, sorted by priority — from professional work to academic projects.",
+          "All my GitHub repositories, sorted by priority — from professional work to academic projects.",
       loading: "Loading projects from GitHub…",
       error: "Unable to load GitHub projects. Please try again later.",
       demo: "Demo",
+    },
+    experience: {
+      tag: "Journey",
+      title: "My",
+      titleHighlight: "Experience",
+      subtitle: "My internships and hands-on projects in companies.",
+      seeMore: "See details →",
+      tasksTitle: "Key tasks",
+      stackTitle: "Tech stack",
+      previewTitle: "Preview",
     },
     certifications: {
       tag: "Certifications",
       title: "My",
       titleHighlight: "Certifications",
       subtitle:
-        "Certified training in databases and research methodologies, with official verification links.",
+          "Certified training in databases and research methodologies, with official verification links.",
       verify: "Verify certificate",
       items: {
         "mysql-coursera": {
           description:
-            "Modeling, managing and optimizing MySQL databases.",
+              "Modeling, managing and optimizing MySQL databases.",
           skills: ["MySQL", "SQL", "Modeling"],
         },
         "research-qmul": {
           description:
-            "Study design, data collection and analysis, and scientific rigor.",
+              "Study design, data collection and analysis, and scientific rigor.",
           skills: ["Research", "Analysis", "Methodology"],
         },
       },
