@@ -1,11 +1,50 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap'); */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap");
 
-@import url("https://fonts.googleapis.com/css2?family=Outfit&family=PT+Mono&display=swap");
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+html, body, #root, .App {
+  max-width: 100%;
+  overflow-x: hidden;
+}
 
 body {
   margin: 0;
-  font-family: "PT Mono", monospace !important;
+  font-family: "Inter", system-ui, sans-serif !important;
+  font-size: 1rem;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: linear-gradient(to left, rgb(27 20 41), rgb(20 15 35));
+  background: #06070b;
+  color: #c5d0dc;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Outfit", sans-serif !important;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  color: #f4f7fb;
+}
+
+p {
+  line-height: 1.8;
+}
+
+::selection {
+  background: rgba(56, 189, 248, 0.28);
+  color: #fff;
 }

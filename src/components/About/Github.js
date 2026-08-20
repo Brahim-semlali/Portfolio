@@ -1,26 +1,39 @@
 import React from "react";
 import GitHubCalendar from "react-github-calendar";
 import { Row } from "react-bootstrap";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 function Github() {
+  const { t } = useLanguage();
+
   return (
     <Row
       style={{
         justifyContent: "center",
-        paddingBottom: "10px",
+        paddingBottom: "40px",
+        paddingTop: "40px",
         color: "white",
       }}
     >
-      <h1 className="project-heading pb-4" style={{ paddingBottom: "20px" }}>
-        Days I <strong className="purple">Code</strong>
+      <span className="section-tag">{t("about.activityTag")}</span>
+      <h1
+        className="project-heading pb-4"
+        style={{ paddingBottom: "20px", textAlign: "center", width: "100%" }}
+      >
+        {t("about.days")} <span className="gradient-text">Code</span>
       </h1>
-      <GitHubCalendar
-        username="soumyajit4419"
-        blockSize={30}
-        blockMargin={10}
-        color="#c084f5"
-        fontSize={20}
-      />
+      <div
+        className="glass-panel github-calendar-wrap"
+        style={{ padding: "2rem", overflowX: "auto", maxWidth: "100%" }}
+      >
+        <GitHubCalendar
+          username="Brahim-semlali"
+          blockSize={14}
+          blockMargin={4}
+          color="#38bdf8"
+          fontSize={14}
+        />
+      </div>
     </Row>
   );
 }

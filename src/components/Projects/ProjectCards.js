@@ -2,39 +2,62 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { CgWebsite } from "react-icons/cg";
-import { BsGithub } from "react-icons/bs";
+import { BsGithub, BsStar } from "react-icons/bs";
+import TechLogos, { stackFromLanguage } from "./TechLogos";
+import { useLanguage } from "../../i18n/LanguageContext";
 
-function ProjectCards(props) {
+function ProjectCards({
+  title,
+  description,
+  ghLink,
+  demoLink,
+  language,
+  stack,
+  stars,
+  priority,
+}) {
+  const logos = stack && stack.length ? stack : stackFromLanguage(language);
+  const { t } = useLanguage();
+
   return (
     <Card className="project-card-view">
-      <Card.Img variant="top" src={props.imgPath} alt="card-img" />
+      <div className="project-card-img-wrap project-card-lang-wrap">
+        {priority && <span className="project-priority">#{priority}</span>}
+        <TechLogos stack={logos} />
+      </div>
       <Card.Body>
-        <Card.Title>{props.title}</Card.Title>
-        <Card.Text style={{ textAlign: "justify" }}>
-          {props.description}
-        </Card.Text>
-        <Button variant="primary" href={props.ghLink} target="_blank">
-          <BsGithub /> &nbsp;
-          {props.isBlog ? "Blog" : "GitHub"}
-        </Button>
-        {"\n"}
-        {"\n"}
-
-        {/* If the component contains Demo link and if it's not a Blog then, it will render the below component  */}
-
-        {!props.isBlog && props.demoLink && (
-          <Button
-            variant="primary"
-            href={props.demoLink}
-            target="_blank"
-            style={{ marginLeft: "10px" }}
-          >
-            <CgWebsite /> &nbsp;
-            {"Demo"}
-          </Button>
+        <Card.Title>{title}</Card.Title>
+        <Card.Text>{description}</Card.Text>
+        {stars > 0 && (
+          <p className="project-stars">
+            <BsStar /> {stars}
+          </p>
         )}
+        <div className="project-card-actions">
+          {ghLink && (
+            <Button
+              variant="primary"
+              href={ghLink}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <BsGithub /> GitHub
+            </Button>
+          )}
+          {demoLink && (
+            <Button
+              className="btn-outline-glass"
+              href={demoLink}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <CgWebsite /> {t("projects.demo")}
+            </Button>
+          )}
+        </div>
       </Card.Body>
     </Card>
   );
 }
+
 export default ProjectCards;

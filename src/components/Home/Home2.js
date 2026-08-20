@@ -1,56 +1,49 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import myImg from "../../Assets/avatar.svg";
-import Tilt from "react-parallax-tilt";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 function Home2() {
+  const { t } = useLanguage();
+
   return (
     <Container fluid className="home-about-section" id="about">
       <Container>
-        <Row>
-          <Col md={8} className="home-about-description">
-            <h1 style={{ fontSize: "2.6em" }}>
-              LET ME <span className="purple"> INTRODUCE </span> MYSELF
-            </h1>
-            <p className="home-about-body">
-              I’m a Software Engineer who loves transforming ideas into
-              reliable, scalable products. Over time, I’ve explored several
-              technologies and found my passion in building high-performance
-              systems and intuitive user experiences.
-              <br />
-              <br />
-              I’m proficient in
-              <i>
-                <b className="purple">
-                  {" "}
-                  JavaScript, C++, Rust, Node.js, and Java{" "}
-                </b>
-              </i>
-              — and I enjoy working across both backend and frontend stacks.
-              <br />
-              <br />
-              My key areas of interest include developing
-              <i>
-                <b className="purple">
-                  {" "}
-                  Web Applications, Blockchain Solutions,{" "}
-                </b>
-              </i>
-              and exploring new ways to bridge on-chain and off-chain systems.
-              <br />
-              <br />
-              Whenever possible, I love building projects with
-              <b className="purple"> Node.js </b> and modern frameworks like{" "}
-              <i>
-                <b className="purple">React.js</b> and{" "}
-                <b className="purple">Next.js</b>.
-              </i>
-            </p>
+        <Row className="g-4 align-items-stretch">
+          <Col lg={7} className="home-about-description">
+            <div className="glass-panel">
+              <span className="section-tag">{t("home.aboutTag")}</span>
+              <h1 className="intro-title">
+                {t("home.introTitle")}{" "}
+                <span className="gradient-text">{t("home.introHighlight")}</span>
+              </h1>
+              <p className="home-about-body">
+                {t("home.intro1")}
+                <br />
+                <br />
+                {t("home.intro2")}
+                <br />
+                <br />
+                {t("home.intro3a")}
+                <b className="purple">{t("home.intro3b")}</b>
+                {t("home.intro3c")}
+              </p>
+            </div>
           </Col>
-          <Col md={4} className="myAvtar">
-            <Tilt>
-              <img src={myImg} className="img-fluid" alt="avatar" />
-            </Tilt>
+          <Col lg={5}>
+            <div className="bento-side">
+              <article className="stat-card">
+                <span className="stat-label">{t("home.statFocus")}</span>
+                <strong>{t("home.statFocusValue")}</strong>
+              </article>
+              <article className="stat-card">
+                <span className="stat-label">{t("home.statStack")}</span>
+                <strong>{t("home.statStackValue")}</strong>
+              </article>
+              <article className="stat-card">
+                <span className="stat-label">{t("home.statLocation")}</span>
+                <strong>{t("home.statLocationValue")}</strong>
+              </article>
+            </div>
           </Col>
         </Row>
       </Container>

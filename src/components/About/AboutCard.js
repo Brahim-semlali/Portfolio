@@ -1,47 +1,56 @@
 import React from "react";
-import Card from "react-bootstrap/Card";
-import { ImPointRight } from "react-icons/im";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 function AboutCard() {
+  const { t } = useLanguage();
+
   return (
-    <Card className="quote-card-view">
-      <Card.Body>
-        <blockquote className="blockquote mb-0">
-          <p style={{ textAlign: "justify" }}>
-            Hi everyone! I’m <span className="purple">Soumyajit Behera</span>{" "}
-            from <span className="purple">Bhubaneswar, India</span>.
-            <br />
-            I’m currently working as a{" "}
-            <span className="purple">Software Developer</span> at{" "}
-            <span className="purple">Juspay</span>.
-            <br />I hold an Integrated M.Sc. (IMSc) in{" "}
-            <span className="purple">Mathematics and Computing</span> from{" "}
-            <span className="purple">BIT Mesra</span>.
-            <br />
-            <br />
-            Outside of coding, I love engaging in activities that keep me
-            creative and inspired:
-          </p>
+    <div className="about-bio">
+      <p>
+        {t("about.hello")} <span className="purple">Brahim Semlali</span>,{" "}
+        {t("about.based")}{" "}
+        <span className="purple">{t("about.location")}</span>.
+        <br />
+        {t("about.iAm")} <span className="purple">{t("about.role")}</span>{" "}
+        {t("about.student")}{" "}
+        <span className="purple">{t("about.master")}</span> {t("about.school")}
+      </p>
 
-          <ul>
-            <li className="about-activity">
-              <ImPointRight /> Playing Games 🎮
-            </li>
-            <li className="about-activity">
-              <ImPointRight /> Writing Tech Blogs ✍️
-            </li>
-            <li className="about-activity">
-              <ImPointRight /> Traveling and Exploring New Places 🌍
-            </li>
-          </ul>
+      <h3 className="about-block-title">{t("about.experience")}</h3>
+      <div className="timeline">
+        <div className="timeline-item">
+          <span className="timeline-dot" />
+          <p>{t("about.exp1")}</p>
+        </div>
+        <div className="timeline-item">
+          <span className="timeline-dot" />
+          <p>{t("about.exp2")}</p>
+        </div>
+      </div>
 
-          <p style={{ color: "rgb(155 126 172)" }}>
-            "Strive to build things that make a difference!"{" "}
-          </p>
-          <footer className="blockquote-footer">Soumyajit</footer>
-        </blockquote>
-      </Card.Body>
-    </Card>
+      <h3 className="about-block-title">{t("about.education")}</h3>
+      <div className="timeline">
+        <div className="timeline-item">
+          <span className="timeline-dot" />
+          <p>{t("about.edu1")}</p>
+        </div>
+        <div className="timeline-item">
+          <span className="timeline-dot" />
+          <p>{t("about.edu2")}</p>
+        </div>
+        <div className="timeline-item">
+          <span className="timeline-dot" />
+          <p>{t("about.edu3")}</p>
+        </div>
+      </div>
+
+      <p>
+        <strong className="purple">{t("about.languages")}</strong>{" "}
+        {t("about.languagesText")}
+      </p>
+
+      <blockquote className="about-quote">“{t("about.quote")}”</blockquote>
+    </div>
   );
 }
 

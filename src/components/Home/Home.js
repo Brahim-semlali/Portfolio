@@ -1,102 +1,142 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import homeLogo from "../../Assets/home-main.svg";
+import { Link } from "react-router-dom";
+import profilePhoto from "../../Assets/profile.jpeg";
 import Particle from "../Particle";
 import Home2 from "./Home2";
 import Type from "./Type";
-import Techstack from "../About/Techstack";
-import Github from "../About/Github";
-import {
-  AiFillGithub,
-  AiOutlineTwitter,
-  AiFillInstagram,
-} from "react-icons/ai";
+import { AiFillGithub, AiOutlineArrowRight } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import { CgFileDocument } from "react-icons/cg";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 function Home() {
+  const { t } = useLanguage();
+
   return (
     <section>
       <Container fluid className="home-section" id="home">
         <Particle />
         <Container className="home-content">
-          <Row>
-            <Col md={7} className="home-header">
-              <h1 style={{ paddingBottom: 15 }} className="heading">
-                Hi There!{" "}
-                <span className="wave" role="img" aria-labelledby="wave">
-                  👋🏻
-                </span>
-              </h1>
+          <Row className="align-items-center gy-5">
+            <Col lg={7} className="home-header">
+              <div className="hero-badge">
+                <span className="hero-badge-dot" />
+                {t("home.badge")}
+              </div>
+
+              <p className="hero-kicker">{t("home.hello")}</p>
 
               <h1 className="heading-name">
-                I'M
-                <strong className="main-name"> SOUMYAJIT BEHERA</strong>
+                {t("home.iAm")}
+                <strong className="main-name">Brahim Semlali</strong>
               </h1>
 
-              <div style={{ padding: 50, textAlign: "left" }}>
+              <div className="typewriter-wrap">
                 <Type />
               </div>
+
+              <p className="hero-lead">{t("home.lead")}</p>
+
+              <div className="hero-actions">
+                <Link to="/project" className="btn btn-primary hero-btn">
+                  {t("home.ctaProjects")} <AiOutlineArrowRight />
+                </Link>
+                <Link to="/resume" className="btn btn-outline-glass hero-btn">
+                  <CgFileDocument /> {t("home.ctaResume")}
+                </Link>
+              </div>
+
+              <ul className="hero-social">
+                <li>
+                  <a
+                    href="https://github.com/Brahim-semlali"
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="GitHub"
+                  >
+                    <AiFillGithub />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.linkedin.com/in/brahim-semlali/"
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="LinkedIn"
+                  >
+                    <FaLinkedinIn />
+                  </a>
+                </li>
+                <li>
+                  <a href="mailto:semlalibrahim34@gmail.com" aria-label="Email">
+                    <MdEmail />
+                  </a>
+                </li>
+              </ul>
             </Col>
 
-            <Col md={5} style={{ paddingBottom: 20 }}>
-              <img
-                src={homeLogo}
-                alt="home pic"
-                className="img-fluid"
-                style={{ maxHeight: "450px" }}
-              />
+            <Col lg={5} className="hero-visual">
+              <div className="hero-frame">
+                <div className="hero-frame-ring" />
+                <div className="hero-photo">
+                  <img src={profilePhoto} alt="Brahim Semlali" />
+                </div>
+                <span className="float-chip chip-1">React.js</span>
+                <span className="float-chip chip-2">Spring Boot</span>
+                <span className="float-chip chip-3">Django</span>
+              </div>
             </Col>
           </Row>
         </Container>
       </Container>
+
       <Home2 />
 
       <Container>
-        <Row style={{ paddingTop: "50px", paddingBottom: "80px" }}>
+        <Row>
           <Col md={12} className="home-about-social">
-            <h1>Find Me On</h1>
+            <span className="section-tag">{t("home.contactTag")}</span>
+            <h1>
+              {t("home.workTogether")}{" "}
+              <span className="gradient-text">{t("home.together")}</span>
+            </h1>
             <p>
-              Feel free to <span className="purple">connect </span>with me
+              {t("home.contactText")}{" "}
+              <span className="purple">{t("home.contactHighlight")}</span>{" "}
+              {t("home.contactWithMe")}
             </p>
             <ul className="home-about-social-links">
               <li className="social-icons">
                 <a
-                  href="https://github.com/soumyajit4419"
+                  href="https://github.com/Brahim-semlali"
                   target="_blank"
                   rel="noreferrer"
-                  className="icon-colour  home-social-icons"
+                  className="icon-colour home-social-icons"
+                  aria-label="GitHub"
                 >
                   <AiFillGithub />
                 </a>
               </li>
               <li className="social-icons">
                 <a
-                  href="https://twitter.com/Soumyajit4419"
+                  href="https://www.linkedin.com/in/brahim-semlali/"
                   target="_blank"
                   rel="noreferrer"
-                  className="icon-colour  home-social-icons"
-                >
-                  <AiOutlineTwitter />
-                </a>
-              </li>
-              <li className="social-icons">
-                <a
-                  href="https://www.linkedin.com/in/soumyajit4419/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="icon-colour  home-social-icons"
+                  className="icon-colour home-social-icons"
+                  aria-label="LinkedIn"
                 >
                   <FaLinkedinIn />
                 </a>
               </li>
               <li className="social-icons">
                 <a
-                  href="https://www.instagram.com/soumyajit4419"
-                  target="_blank"
-                  rel="noreferrer"
+                  href="mailto:semlalibrahim34@gmail.com"
                   className="icon-colour home-social-icons"
+                  aria-label="Email"
                 >
-                  <AiFillInstagram />
+                  <MdEmail />
                 </a>
               </li>
             </ul>
