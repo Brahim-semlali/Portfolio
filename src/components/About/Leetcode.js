@@ -24,7 +24,7 @@ function Leetcode() {
   useEffect(() => {
     let cancelled = false;
 
-    fetch("/leetcode-graphql", {
+    fetch("/api/leetcode-graphql", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
