@@ -21,6 +21,7 @@ export const translations = {
       pageNavigation: "Navigation entre les pages",
       previousPage: "Page précédente",
       nextPage: "Page suivante",
+      nextPageHint: "Glissez vers la gauche pour voir",
     },
     home: {
       badge: "Disponible pour un stage",
@@ -211,6 +212,7 @@ export const translations = {
       pageNavigation: "Page navigation",
       previousPage: "Previous page",
       nextPage: "Next page",
+      nextPageHint: "Swipe left to view",
     },
     home: {
       badge: "Open to internships",

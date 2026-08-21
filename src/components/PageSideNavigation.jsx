@@ -4,6 +4,7 @@ import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { useLanguage } from "../i18n/LanguageContext";
 
 const PAGE_ORDER = ["/", "/about", "/project", "/experience", "/certifications", "/resume"];
+const PAGE_LABEL_KEYS = ["home", "about", "projects", "experience", "certifications", "resume"];
 
 export default function PageSideNavigation() {
   const { t } = useLanguage();
@@ -13,6 +14,7 @@ export default function PageSideNavigation() {
     0,
     PAGE_ORDER.findIndex((path) => location.pathname === path || location.pathname.startsWith(`${path}/`))
   );
+  const nextIndex = currentIndex + 1;
   const touchStart = useRef(null);
 
   const goToPage = (direction) => {
@@ -47,6 +49,17 @@ export default function PageSideNavigation() {
 
   return (
     <nav className="page-side-navigation" aria-label={t("nav.pageNavigation")}>
+      {nextIndex < PAGE_ORDER.length && (
+        <button
+          type="button"
+          className="page-swipe-hint"
+          onClick={() => goToPage(1)}
+          aria-label={`${t("nav.nextPage")}: ${t(`nav.${PAGE_LABEL_KEYS[nextIndex]}`)}`}
+        >
+          <strong>{t(`nav.${PAGE_LABEL_KEYS[nextIndex]}`)}</strong>
+          <BsChevronRight aria-hidden="true" />
+        </button>
+      )}
       <button
         type="button"
         className="page-side-arrow page-side-arrow-left"
