@@ -31,7 +31,7 @@ function ResumeNew() {
 
   return (
     <div>
-      <Container fluid className="resume-section">
+      <Container fluid className="resume-section" id="resume">
         <Particle />
         <Container>
           <span className="section-tag">{t("resume.tag")}</span>

@@ -1,5 +1,9 @@
 export const translations = {
   fr: {
+    theme: {
+      light: "Activer le mode clair",
+      dark: "Activer le mode sombre",
+    },
     nav: {
       home: "Accueil",
       about: "À propos",
@@ -8,6 +12,15 @@ export const translations = {
       certifications: "Certifications",
       resume: "CV",
       year: "Année",
+      previewHome: ["Présentation", "Disponible pour un stage", "Contact"],
+      previewAbout: ["Qui suis-je ?", "Compétences techniques", "Outils", "Activité GitHub", "Progression LeetCode"],
+      previewProjects: [],
+      previewExperience: [],
+      previewCertifications: [],
+      previewResume: [],
+      pageNavigation: "Navigation entre les pages",
+      previousPage: "Page précédente",
+      nextPage: "Page suivante",
     },
     home: {
       badge: "Disponible pour un stage",
@@ -69,6 +82,7 @@ export const translations = {
       master: "M2 Ingénierie des Systèmes d'Information",
       school: "à la Faculté des Sciences Semlalia.",
       experience: "Expériences professionnelles :",
+      viewExperiences: "Voir mes expériences professionnelles",
       exp1:
           "Titrit Technologies — Stage PFE Full Stack (04/2025 – 06/2025) : portail de gestion du cycle de vie des tokens de paiement bancaire (React.js, Django, PostgreSQL, JWT).",
       exp2:
@@ -77,10 +91,17 @@ export const translations = {
       edu1: "Master ISI — Faculté des Sciences Semlalia (2025 – 2027)",
       edu2: "Licence Pro. Génie Informatique — FPT Taroudant (2024 – 2025), Mention Bien",
       edu3: "DEUP Génie Informatique — FPT Taroudant (2022 – 2024), Mention Assez Bien",
+      edu1Title: "Master Ingénierie des Systèmes d’Information",
+      edu1Meta: "Faculté des Sciences Semlalia · 2025 – 2027",
+      edu2Title: "Licence Professionnelle en Génie Informatique",
+      edu2Meta: "FPT Taroudant · 2024 – 2025 · Mention Bien",
+      edu3Title: "DEUP en Génie Informatique",
+      edu3Meta: "FPT Taroudant · 2022 – 2024 · Mention Assez Bien",
       languages: "Langues :",
       languagesText:
           "Arabe (langue maternelle), Français (bon niveau), Anglais (intermédiaire)",
       quote: "Rigoureux, autonome et orienté résolution de problèmes.",
+      photoLabel: "Profil professionnel",
       stackTag: "Stack",
       skills: "Compétences",
       skillsHighlight: "techniques",
@@ -170,6 +191,10 @@ export const translations = {
     },
   },
   en: {
+    theme: {
+      light: "Enable light mode",
+      dark: "Enable dark mode",
+    },
     nav: {
       home: "Home",
       about: "About",
@@ -177,6 +202,15 @@ export const translations = {
       experience: "Experience",
       certifications: "Certifications",
       resume: "Resume",
+      previewHome: ["Introduction", "Open to internships", "Contact"],
+      previewAbout: ["Who am I?", "Technical skills", "Tools", "GitHub activity", "LeetCode progress"],
+      previewProjects: [],
+      previewExperience: [],
+      previewCertifications: [],
+      previewResume: [],
+      pageNavigation: "Page navigation",
+      previousPage: "Previous page",
+      nextPage: "Next page",
     },
     home: {
       badge: "Open to internships",
@@ -239,6 +273,7 @@ export const translations = {
       master: "M2 Information Systems Engineering",
       school: "at the Faculty of Sciences Semlalia.",
       experience: "Professional experience:",
+      viewExperiences: "View my professional experience",
       exp1:
           "Titrit Technologies — Final-year internship, Full Stack (04/2025 – 06/2025): payment token lifecycle management portal (React.js, Django, PostgreSQL, JWT).",
       exp2:
@@ -247,9 +282,16 @@ export const translations = {
       edu1: "Master's in ISI — Faculty of Sciences Semlalia (2025 – 2027)",
       edu2: "Professional Bachelor's in Computer Engineering — FPT Taroudant (2024 – 2025), Honors: Bien",
       edu3: "DEUP in Computer Engineering — FPT Taroudant (2022 – 2024), Honors: Assez Bien",
+      edu1Title: "Master’s in Information Systems Engineering",
+      edu1Meta: "Faculty of Sciences Semlalia · 2025 – 2027",
+      edu2Title: "Professional Bachelor’s in Computer Engineering",
+      edu2Meta: "FPT Taroudant · 2024 – 2025 · Honors: Bien",
+      edu3Title: "DEUP in Computer Engineering",
+      edu3Meta: "FPT Taroudant · 2022 – 2024 · Honors: Assez Bien",
       languages: "Languages:",
       languagesText: "Arabic (native), French (good level), English (intermediate)",
       quote: "Rigorous, autonomous and problem-solving oriented.",
+      photoLabel: "Professional profile",
       stackTag: "Stack",
       skills: "Technical",
       skillsHighlight: "skills",

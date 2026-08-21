@@ -4,7 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import logo from "../Assets/profile.jpeg";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { CgGitFork } from "react-icons/cg";
 import {
   AiFillStar,
@@ -15,12 +15,15 @@ import {
 import { CgFileDocument } from "react-icons/cg";
 import { BsAward, BsBriefcase } from "react-icons/bs";
 import LanguageSwitcher from "./LanguageSwitcher";
+import ThemeSwitcher from "./ThemeSwitcher";
 import { useLanguage } from "../i18n/LanguageContext";
 
 function NavBar() {
   const [expand, updateExpanded] = useState(false);
   const [navColour, updateNavbar] = useState(false);
+  const [dismissedPreview, setDismissedPreview] = useState(null);
   const { t } = useLanguage();
+  const location = useLocation();
 
   useEffect(() => {
     const scrollHandler = () => {
@@ -30,6 +33,48 @@ function NavBar() {
     window.addEventListener("scroll", scrollHandler, { passive: true });
     return () => window.removeEventListener("scroll", scrollHandler);
   }, []);
+
+  const navPreviews = {
+    home: t("nav.previewHome").map((label, index) => ({ label, hash: ["#home", "#about", "#contact"][index] })),
+    about: t("nav.previewAbout").map((label, index) => ({ label, hash: ["#profile", "#skills", "#tools", "#github", "#leetcode"][index] })),
+    projects: t("nav.previewProjects").map((label) => ({ label, hash: "#projects" })),
+    experience: t("nav.previewExperience").map((label) => ({ label, hash: "#experience" })),
+    certifications: t("nav.previewCertifications").map((label) => ({ label, hash: "#certifications" })),
+    resume: t("nav.previewResume").map((label) => ({ label, hash: "#resume" })),
+  };
+
+  const renderNavLink = (key, to, Icon) => (
+    <>
+      <Nav.Link
+        as={Link}
+        to={to}
+        onClick={() => {
+          updateExpanded(false);
+          setDismissedPreview(key);
+        }}
+        onMouseEnter={() => setDismissedPreview(null)}
+        className={`nav-link-with-preview ${location.pathname === to ? "active" : ""}`}
+      >
+        <span className="nav-link-label"><Icon /> {t(`nav.${key}`)}</span>
+      </Nav.Link>
+      {navPreviews[key].length > 0 && (
+        <span className={`nav-preview ${dismissedPreview === key ? "nav-preview-dismissed" : ""}`}>
+          {navPreviews[key].map((item) => (
+            <Link
+              key={item.label}
+              to={`${to}${item.hash}`}
+              onClick={() => {
+                updateExpanded(false);
+                setDismissedPreview(key);
+              }}
+            >
+              # {item.label}
+            </Link>
+          ))}
+        </span>
+      )}
+    </>
+  );
 
   return (
       <Navbar
@@ -47,6 +92,7 @@ function NavBar() {
           </Navbar.Brand>
 
           <div className="navbar-tools">
+            <ThemeSwitcher />
             <LanguageSwitcher />
             <Navbar.Toggle
                 aria-controls="responsive-navbar-nav"
@@ -63,59 +109,27 @@ function NavBar() {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="ms-auto" defaultActiveKey="#home">
               <Nav.Item>
-                <Nav.Link as={Link} to="/" onClick={() => updateExpanded(false)}>
-                  <AiOutlineHome /> {t("nav.home")}
-                </Nav.Link>
+                {renderNavLink("home", "/", AiOutlineHome)}
               </Nav.Item>
 
               <Nav.Item>
-                <Nav.Link
-                    as={Link}
-                    to="/about"
-                    onClick={() => updateExpanded(false)}
-                >
-                  <AiOutlineUser /> {t("nav.about")}
-                </Nav.Link>
+                {renderNavLink("about", "/about", AiOutlineUser)}
               </Nav.Item>
 
               <Nav.Item>
-                <Nav.Link
-                    as={Link}
-                    to="/project"
-                    onClick={() => updateExpanded(false)}
-                >
-                  <AiOutlineFundProjectionScreen /> {t("nav.projects")}
-                </Nav.Link>
+                {renderNavLink("projects", "/project", AiOutlineFundProjectionScreen)}
               </Nav.Item>
 
               <Nav.Item>
-                <Nav.Link
-                    as={Link}
-                    to="/experience"
-                    onClick={() => updateExpanded(false)}
-                >
-                  <BsBriefcase /> {t("nav.experience")}
-                </Nav.Link>
+                {renderNavLink("experience", "/experience", BsBriefcase)}
               </Nav.Item>
 
               <Nav.Item>
-                <Nav.Link
-                    as={Link}
-                    to="/certifications"
-                    onClick={() => updateExpanded(false)}
-                >
-                  <BsAward /> {t("nav.certifications")}
-                </Nav.Link>
+                {renderNavLink("certifications", "/certifications", BsAward)}
               </Nav.Item>
 
               <Nav.Item>
-                <Nav.Link
-                    as={Link}
-                    to="/resume"
-                    onClick={() => updateExpanded(false)}
-                >
-                  <CgFileDocument /> {t("nav.resume")}
-                </Nav.Link>
+                {renderNavLink("resume", "/resume", CgFileDocument)}
               </Nav.Item>
 
               <Nav.Item className="fork-btn">

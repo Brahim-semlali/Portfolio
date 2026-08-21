@@ -44,7 +44,7 @@ function Projects() {
   }, []);
 
   return (
-    <Container fluid className="project-section">
+    <Container fluid className="project-section" id="projects">
       <Particle />
       <Container>
         <span className="section-tag">{t("projects.tag")}</span>

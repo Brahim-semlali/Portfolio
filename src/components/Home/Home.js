@@ -103,7 +103,7 @@ function Home() {
         <Row>
           <Col md={12} className="home-about-social">
             <span className="section-tag">{t("home.contactTag")}</span>
-            <h1>
+            <h1 id="contact">
               {t("home.workTogether")}{" "}
               <span className="gradient-text">{t("home.together")}</span>
             </h1>

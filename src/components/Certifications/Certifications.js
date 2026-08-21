@@ -9,7 +9,7 @@ function Certifications() {
   const { t } = useLanguage();
 
   return (
-    <Container fluid className="cert-section">
+    <Container fluid className="cert-section" id="certifications">
       <Particle />
       <Container>
         <span className="section-tag">{t("certifications.tag")}</span>

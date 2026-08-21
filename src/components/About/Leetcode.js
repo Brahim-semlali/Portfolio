@@ -74,7 +74,7 @@ function Leetcode() {
   ] : [];
 
   return (
-    <section className="leetcode-section" aria-labelledby="leetcode-title">
+    <section id="leetcode" className="leetcode-section" aria-labelledby="leetcode-title">
       <div className="leetcode-heading">
         <div>
           <span className="section-tag">{t("about.leetcodeTag")}</span>

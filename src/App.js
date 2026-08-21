@@ -18,6 +18,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
+import PageSideNavigation from "./components/PageSideNavigation";
 import "./style.css";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -40,6 +41,7 @@ function App() {
           <div className="App" id={load ? "no-scroll" : "scroll"}>
             <GradientBackground />
             <Navbar />
+            <PageSideNavigation />
             <ScrollToTop />
             <Routes>
               <Route path="/" element={<Home />} />

@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { BsArrowRight, BsBriefcase } from "react-icons/bs";
 import { useLanguage } from "../../i18n/LanguageContext";
 
 function AboutCard() {
@@ -17,30 +19,33 @@ function AboutCard() {
       </p>
 
       <h3 className="about-block-title">{t("about.experience")}</h3>
-      <div className="timeline">
-        <div className="timeline-item">
-          <span className="timeline-dot" />
-          <p>{t("about.exp1")}</p>
-        </div>
-        <div className="timeline-item">
-          <span className="timeline-dot" />
-          <p>{t("about.exp2")}</p>
-        </div>
-      </div>
+      <Link to="/experience" className="about-experience-link">
+        <span><BsBriefcase /> {t("about.viewExperiences")}</span>
+        <BsArrowRight />
+      </Link>
 
       <h3 className="about-block-title">{t("about.education")}</h3>
-      <div className="timeline">
+      <div className="education-list">
         <div className="timeline-item">
           <span className="timeline-dot" />
-          <p>{t("about.edu1")}</p>
+          <div>
+            <strong>{t("about.edu1Title")}</strong>
+            <span>{t("about.edu1Meta")}</span>
+          </div>
         </div>
         <div className="timeline-item">
           <span className="timeline-dot" />
-          <p>{t("about.edu2")}</p>
+          <div>
+            <strong>{t("about.edu2Title")}</strong>
+            <span>{t("about.edu2Meta")}</span>
+          </div>
         </div>
         <div className="timeline-item">
           <span className="timeline-dot" />
-          <p>{t("about.edu3")}</p>
+          <div>
+            <strong>{t("about.edu3Title")}</strong>
+            <span>{t("about.edu3Meta")}</span>
+          </div>
         </div>
       </div>
 

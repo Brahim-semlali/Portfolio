@@ -108,6 +108,7 @@ function Github() {
 
   return (
     <Row
+      id="github"
       style={{
         justifyContent: "center",
         paddingBottom: "40px",
