@@ -3240,6 +3240,26 @@ html[data-theme="light"] .cert-year {
   .hero-status, .hero-metric { transform: scale(0.88); }
 }
 
+@media (min-width: 992px) {
+  .home-section {
+    min-height: 620px;
+    align-items: flex-start;
+    padding-top: 112px !important;
+  }
+
+  .home-content {
+    padding-top: 1.8rem !important;
+  }
+
+  .home-header {
+    padding-top: 38px !important;
+  }
+
+  .hero-visual {
+    min-height: 360px;
+  }
+}
+
 /* VALUE PROPOSITION */
 .recruiter-proof {
   padding: clamp(1.35rem, 3vw, 2.5rem);
