@@ -39,6 +39,8 @@ function Home() {
 
               <p className="hero-lead">{t("home.lead")}</p>
 
+              <p className="hero-proof">{t("home.proof")}</p>
+
               <div className="hero-actions">
                 <Link to="/project" className="btn btn-primary hero-btn">
                   {t("home.ctaProjects")} <AiOutlineArrowRight />
@@ -46,6 +48,9 @@ function Home() {
                 <Link to="/resume" className="btn btn-outline-glass hero-btn">
                   <CgFileDocument /> {t("home.ctaResume")}
                 </Link>
+                <a href="mailto:semlalibrahim34@gmail.com" className="btn btn-quiet hero-btn">
+                  <MdEmail /> {t("home.ctaContact")}
+                </a>
               </div>
 
               <ul className="hero-social">

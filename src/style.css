@@ -469,6 +469,104 @@ button:focus {
   margin-bottom: 1.1rem;
 }
 
+.hero-proof {
+  margin: 1.15rem 0 0;
+  color: #b7f7ee;
+  font-family: "Outfit", sans-serif;
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.015em;
+}
+
+.btn-quiet {
+  border: 1px solid rgba(212, 239, 106, 0.28);
+  background: rgba(212, 239, 106, 0.07);
+  color: #e8f5ad;
+}
+
+.btn-quiet:hover {
+  border-color: rgba(212, 239, 106, 0.6);
+  background: rgba(212, 239, 106, 0.14);
+  color: #f5fbfa;
+}
+
+.recruiter-proof {
+  position: relative;
+  margin-top: 3.5rem;
+  padding: 2rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  background: linear-gradient(120deg, rgba(17, 35, 42, 0.72), rgba(10, 17, 24, 0.52));
+  overflow: hidden;
+}
+
+.recruiter-proof::after {
+  content: "";
+  position: absolute;
+  right: -70px;
+  top: -90px;
+  width: 220px;
+  height: 220px;
+  border: 1px solid rgba(69, 224, 208, 0.16);
+  border-radius: 50%;
+  box-shadow: 0 0 0 20px rgba(69, 224, 208, 0.025), 0 0 0 40px rgba(69, 224, 208, 0.018);
+  pointer-events: none;
+}
+
+.recruiter-proof-heading {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 1.5rem;
+}
+
+.recruiter-proof-heading .section-tag {
+  margin-bottom: 0.75rem;
+}
+
+.recruiter-proof-heading h2 {
+  max-width: 520px;
+  margin: 0;
+  color: var(--text-primary);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.recruiter-proof-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border-subtle);
+}
+
+.recruiter-proof-grid article {
+  min-height: 170px;
+  padding: 1.25rem;
+  background: rgba(8, 15, 21, 0.72);
+}
+
+.recruiter-proof-number {
+  color: #d4ef6a;
+  font-family: "Outfit", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.recruiter-proof-grid h3 {
+  margin: 1.2rem 0 0.55rem;
+  color: #f5fbfa;
+  font-size: 1.05rem;
+  letter-spacing: 0;
+}
+
+.recruiter-proof-grid p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  line-height: 1.65;
+}
+
 .hero-badge-dot {
   width: 8px;
   height: 8px;
@@ -991,6 +1089,148 @@ button:focus {
   background: rgba(69, 224, 208, 0.07);
 }
 
+.leetcode-section {
+  position: relative;
+  margin: 1.5rem auto 3rem;
+  padding: 1.75rem;
+  border: 1px solid rgba(255, 161, 22, 0.2);
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(44, 33, 19, 0.62), rgba(13, 20, 26, 0.82));
+  overflow: hidden;
+}
+
+.leetcode-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #ffa116, #ffcf70, transparent);
+}
+
+.leetcode-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.leetcode-heading .section-tag {
+  margin-bottom: 0.65rem;
+  color: #ffc56b;
+  background: rgba(255, 161, 22, 0.1);
+  border-color: rgba(255, 161, 22, 0.24);
+}
+
+.leetcode-heading h2 {
+  margin: 0;
+  color: #fff8ed;
+  font-size: clamp(1.45rem, 3vw, 2.1rem);
+}
+
+.leetcode-heading p {
+  max-width: 580px;
+  margin: 0.55rem 0 0;
+  color: #b6b7bb;
+  font-size: 0.86rem;
+}
+
+.leetcode-brand-icon {
+  flex: 0 0 auto;
+  color: #ffa116;
+  font-size: 2.8rem;
+  filter: drop-shadow(0 0 18px rgba(255, 161, 22, 0.24));
+}
+
+.leetcode-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.65rem;
+  margin-top: 1.5rem;
+}
+
+.leetcode-stat {
+  min-height: 78px;
+  padding: 0.85rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 8px;
+  background: rgba(7, 12, 17, 0.58);
+}
+
+.leetcode-stat strong {
+  display: block;
+  color: #fff8ed;
+  font-family: "Outfit", sans-serif;
+  font-size: 1.2rem;
+}
+
+.leetcode-stat span {
+  display: block;
+  margin-top: 0.3rem;
+  color: #9d9fa5;
+  font-size: 0.68rem;
+}
+
+.leetcode-language-stats {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.leetcode-language-label {
+  color: #ffc56b;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.leetcode-language-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 0.65rem;
+}
+
+.leetcode-language-list span {
+  padding: 0.45rem 0.65rem;
+  border: 1px solid rgba(255, 161, 22, 0.18);
+  border-radius: 6px;
+  background: rgba(255, 161, 22, 0.06);
+  color: #c8c9cd;
+  font-size: 0.75rem;
+}
+
+.leetcode-language-list b {
+  color: #fff0d2;
+}
+
+.leetcode-easy strong { color: #00b8a3; }
+.leetcode-medium strong { color: #ffc01e; }
+.leetcode-hard strong { color: #ef4743; }
+
+.leetcode-status {
+  margin: 1.5rem 0 0;
+  color: #a7a9ae;
+  font-size: 0.82rem;
+}
+
+.leetcode-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.4rem;
+  color: #ffc56b;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.leetcode-link:hover {
+  color: #fff0d2;
+}
+
 @media (max-width: 575px) {
   .github-calendar-wrap {
     padding: 1.15rem !important;
@@ -1021,6 +1261,22 @@ button:focus {
 
   .engineering-tools-list {
     justify-content: flex-start;
+  }
+
+  .leetcode-section {
+    padding: 1.25rem;
+  }
+
+  .leetcode-heading {
+    gap: 0.5rem;
+  }
+
+  .leetcode-brand-icon {
+    font-size: 2.1rem;
+  }
+
+  .leetcode-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -1494,6 +1750,24 @@ button:focus {
 }
 
 @media (max-width: 767px) {
+  .hero-proof {
+    font-size: 0.78rem;
+    line-height: 1.55;
+  }
+
+  .recruiter-proof {
+    padding: 1.25rem;
+    margin-top: 2.5rem;
+  }
+
+  .recruiter-proof-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .recruiter-proof-grid article {
+    min-height: 0;
+  }
+
   .footer-copywright,
   .footer-body {
     text-align: center !important;

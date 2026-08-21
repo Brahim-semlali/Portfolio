@@ -46,6 +46,29 @@ function Home2() {
             </div>
           </Col>
         </Row>
+        <section className="recruiter-proof" aria-labelledby="recruiter-proof-title">
+          <div className="recruiter-proof-heading">
+            <span className="section-tag">{t("home.recruiterTag")}</span>
+            <h2 id="recruiter-proof-title">{t("home.recruiterTitle")}</h2>
+          </div>
+          <div className="recruiter-proof-grid">
+            <article>
+              <span className="recruiter-proof-number">01</span>
+              <h3>{t("home.recruiterPoint1Title")}</h3>
+              <p>{t("home.recruiterPoint1Text")}</p>
+            </article>
+            <article>
+              <span className="recruiter-proof-number">02</span>
+              <h3>{t("home.recruiterPoint2Title")}</h3>
+              <p>{t("home.recruiterPoint2Text")}</p>
+            </article>
+            <article>
+              <span className="recruiter-proof-number">03</span>
+              <h3>{t("home.recruiterPoint3Title")}</h3>
+              <p>{t("home.recruiterPoint3Text")}</p>
+            </article>
+          </div>
+        </section>
       </Container>
     </Container>
   );
