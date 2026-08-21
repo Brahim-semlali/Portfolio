@@ -5,6 +5,7 @@ import { BsCalendar3, BsGeoAlt } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { useLanguage } from "../../i18n/LanguageContext";
 import TechLogos from "../Projects/TechLogos";
+import { animated, useSpring } from "@react-spring/web";
 
 export default function ExperienceCard({ experience }) {
     const { t } = useLanguage();
@@ -18,8 +19,17 @@ export default function ExperienceCard({ experience }) {
         shortDescription,
         stack,
     } = experience;
+    const [cardAnimation, cardApi] = useSpring(() => ({
+        transform: "translateY(0px)",
+        config: { tension: 260, friction: 20 },
+    }));
 
     return (
+        <animated.div
+            style={cardAnimation}
+            onMouseEnter={() => cardApi.start({ transform: "translateY(-8px)" })}
+            onMouseLeave={() => cardApi.start({ transform: "translateY(0px)" })}
+        >
         <Card className="experience-card">
             <Link to={`/experience/${experience.id}`} className="experience-card-link">
                 <Card.Body>
@@ -60,5 +70,6 @@ export default function ExperienceCard({ experience }) {
                 </Card.Body>
             </Link>
         </Card>
+        </animated.div>
     );
 }

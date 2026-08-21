@@ -10,15 +10,42 @@ import { FaLinkedinIn } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { CgFileDocument } from "react-icons/cg";
 import { useLanguage } from "../../i18n/LanguageContext";
+import { animated, useSpring } from "@react-spring/web";
 
 function Home() {
   const { t } = useLanguage();
+  const heroAnimation = useSpring({
+    from: { opacity: 0, transform: "translateY(22px)" },
+    to: { opacity: 1, transform: "translateY(0px)" },
+    config: { tension: 170, friction: 22 },
+  });
+  const [portraitMotion, portraitApi] = useSpring(() => ({
+    transform: "perspective(1100px) rotateX(0deg) rotateY(0deg) translate3d(0px, 0px, 0px)",
+    config: { tension: 220, friction: 24, mass: 1.1 },
+  }));
+
+  const handlePortraitMove = (event) => {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+
+    portraitApi.start({
+      transform: `perspective(1100px) rotateX(${y * -8}deg) rotateY(${x * 10}deg) translate3d(${x * 8}px, ${y * 8}px, 0px)`,
+    });
+  };
+
+  const resetPortrait = () => {
+    portraitApi.start({
+      transform: "perspective(1100px) rotateX(0deg) rotateY(0deg) translate3d(0px, 0px, 0px)",
+    });
+  };
 
   return (
     <section>
       <Container fluid className="home-section" id="home">
         <Particle />
         <Container className="home-content">
+          <animated.div style={heroAnimation}>
           <Row className="align-items-center gy-5">
             <Col lg={7} className="home-header">
               <div className="hero-badge">
@@ -83,17 +110,32 @@ function Home() {
             </Col>
 
             <Col lg={5} className="hero-visual">
-              <div className="hero-frame">
-                <div className="hero-frame-ring" />
-                <div className="hero-photo">
-                  <img src={profilePhoto} alt="Brahim Semlali" />
-                </div>
-                <span className="float-chip chip-1">React.js</span>
-                <span className="float-chip chip-2">Spring Boot</span>
-                <span className="float-chip chip-3">Django</span>
+              <div
+                className="hero-stage"
+                onMouseMove={handlePortraitMove}
+                onMouseLeave={resetPortrait}
+              >
+                <div className="hero-orbit hero-orbit-one" />
+                <div className="hero-orbit hero-orbit-two" />
+                <animated.div className="hero-frame" style={portraitMotion}>
+                  <div className="hero-frame-glow" />
+                  <div className="hero-frame-ring" />
+                  <div className="hero-photo">
+                    <img src={profilePhoto} alt="Brahim Semlali" />
+                    <span className="hero-scanline" />
+                  </div>
+                  <div className="hero-status"><span /> AVAILABLE FOR WORK</div>
+                  <div className="hero-metric"><strong>04</strong><span>CORE<br />STACKS</span></div>
+                  <span className="float-chip chip-1">React.js</span>
+                  <span className="float-chip chip-2">Spring Boot</span>
+                  <span className="float-chip chip-3">Django</span>
+                </animated.div>
+                <div className="hero-orbit-dot hero-orbit-dot-one" />
+                <div className="hero-orbit-dot hero-orbit-dot-two" />
               </div>
             </Col>
           </Row>
+          </animated.div>
         </Container>
       </Container>
 

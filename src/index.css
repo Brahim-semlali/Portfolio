@@ -23,8 +23,9 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #06070b;
-  color: #c5d0dc;
+  background: var(--bg-deep, #0b1118);
+  color: var(--text-body, #b8c8ce);
+  transition: background-color 0.35s ease, color 0.35s ease;
   overflow-x: hidden;
 }
 
@@ -45,6 +46,11 @@ p {
 }
 
 ::selection {
-  background: rgba(56, 189, 248, 0.28);
+  background: rgba(74, 199, 190, 0.28);
   color: #fff;
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent, #4ac7be);
+  outline-offset: 3px;
 }
