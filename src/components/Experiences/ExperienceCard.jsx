@@ -1,10 +1,10 @@
 // src/components/Experience/ExperienceCard.jsx
 import React from "react";
 import Card from "react-bootstrap/esm/Card";
-import Badge from "react-bootstrap/esm/Badge";
 import { BsCalendar3, BsGeoAlt } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { useLanguage } from "../../i18n/LanguageContext";
+import TechLogos from "../Projects/TechLogos";
 
 export default function ExperienceCard({ experience }) {
     const { t } = useLanguage();
@@ -54,18 +54,7 @@ export default function ExperienceCard({ experience }) {
                         {shortDescription}
                     </Card.Text>
 
-                    <div className="experience-stack-preview">
-                        {stack.slice(0, 4).map((tech) => (
-                            <Badge key={tech} className="experience-badge">
-                                {tech}
-                            </Badge>
-                        ))}
-                        {stack.length > 4 && (
-                            <Badge className="experience-badge experience-badge-more">
-                                +{stack.length - 4}
-                            </Badge>
-                        )}
-                    </div>
+                    <TechLogos stack={stack.slice(0, 5)} className="experience-stack-preview" />
 
                     <p className="experience-see-more">{t("experience.seeMore")}</p>
                 </Card.Body>

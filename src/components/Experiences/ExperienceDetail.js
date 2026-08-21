@@ -1,11 +1,11 @@
 import React from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
-import Badge from "react-bootstrap/esm/Badge";
 import Button from "react-bootstrap/esm/Button";
 import { BsArrowLeft, BsCalendar3, BsGeoAlt, BsGithub } from "react-icons/bs";
 import { CgWebsite } from "react-icons/cg";
 import { useLanguage } from "../../i18n/LanguageContext";
 import experienceData from "./experienceData";
+import TechLogos from "../Projects/TechLogos";
 import "./ExperienceSection.css";
 
 export default function ExperienceDetail() {
@@ -97,11 +97,7 @@ export default function ExperienceDetail() {
                     <aside className="experience-detail-sidebar">
                         <div className="experience-detail-panel">
                             <p className="experience-detail-label">{t("experience.stackTitle")}</p>
-                            <div className="experience-stack-full">
-                                {stack.map((tech) => (
-                                    <Badge key={tech} className="experience-badge">{tech}</Badge>
-                                ))}
-                            </div>
+                            <TechLogos stack={stack} />
                         </div>
 
                         {(ghLink || demoLink) && (

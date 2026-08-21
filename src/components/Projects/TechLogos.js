@@ -17,21 +17,26 @@ import {
   SiHtml5,
   SiCss3,
   SiJupyter,
+  SiPostman,
+  SiSwagger,
 } from "react-icons/si";
-import { FaJava, FaLock } from "react-icons/fa";
+import { FaJava, FaLock, FaGithub, FaTools, FaLink } from "react-icons/fa";
 import { DiDatabase } from "react-icons/di";
 
 const ICONS = {
   React: { icon: SiReact, color: "#61DAFB" },
+  "React.js": { icon: SiReact, color: "#61DAFB" },
   "Next.js": { icon: SiNextdotjs, color: "#E2E8F0" },
   TypeScript: { icon: SiTypescript, color: "#3178C6" },
   JavaScript: { icon: SiJavascript, color: "#F7DF1E" },
   Python: { icon: SiPython, color: "#3776AB" },
   Java: { icon: FaJava, color: "#E76F00" },
   Django: { icon: SiDjango, color: "#44B78B" },
+  "Django REST Framework": { icon: SiDjango, color: "#44B78B" },
   FastAPI: { icon: SiFastapi, color: "#009688" },
   "Spring Boot": { icon: SiSpringboot, color: "#6DB33F" },
   PostgreSQL: { icon: SiPostgresql, color: "#4169E1" },
+  PostGIS: { icon: SiPostgresql, color: "#4169E1" },
   MongoDB: { icon: SiMongodb, color: "#47A248" },
   MySQL: { icon: SiMysql, color: "#4479A1" },
   Docker: { icon: SiDocker, color: "#2496ED" },
@@ -40,6 +45,14 @@ const ICONS = {
   HTML: { icon: SiHtml5, color: "#E34F26" },
   CSS: { icon: SiCss3, color: "#1572B6" },
   JWT: { icon: FaLock, color: "#A5B4FC" },
+  "API REST": { icon: FaLink, color: "#45E0D0" },
+  mkcert: { icon: FaLock, color: "#FBBF24" },
+  GitHub: { icon: FaGithub, color: "#F4F7FB" },
+  Postman: { icon: SiPostman, color: "#FF6C37" },
+  Swagger: { icon: SiSwagger, color: "#85EA2D" },
+  LangChain: { icon: FaLink, color: "#80D8A5" },
+  "SpringDoc": { icon: SiSwagger, color: "#85EA2D" },
+  "draw.io": { icon: FaTools, color: "#F2B233" },
   SQL: { icon: DiDatabase, color: "#818CF8" },
   "Jupyter Notebook": { icon: SiJupyter, color: "#F37626" },
 };
@@ -59,13 +72,13 @@ export function stackFromLanguage(language) {
   return LANGUAGE_TO_STACK[language] || [language];
 }
 
-function TechLogos({ stack = [] }) {
+function TechLogos({ stack = [], className = "" }) {
   if (!stack.length) {
     return <span className="project-lang-badge">Code</span>;
   }
 
   return (
-    <div className="project-tech-logos" aria-label="Technologies utilisées">
+    <div className={`project-tech-logos ${className}`.trim()} aria-label="Technologies utilisées">
       {stack.map((name) => {
         const item = ICONS[name];
         if (!item) {

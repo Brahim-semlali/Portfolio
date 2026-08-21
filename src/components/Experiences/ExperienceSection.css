@@ -138,15 +138,23 @@
 }
 
 .experience-company {
-    color: #fff;
+    color: #f5fbfa !important;
     font-size: 1.16rem;
+    font-weight: 700;
+    line-height: 1.2;
     margin-bottom: 2px;
 }
 
 .experience-role {
-    color: #b9e8c7;
+    color: #b9e8c7 !important;
     font-size: 0.82rem;
+    font-weight: 500;
     line-height: 1.4;
+}
+
+.experience-card .card-title,
+.experience-card .card-subtitle {
+    opacity: 1 !important;
 }
 
 .experience-meta {
