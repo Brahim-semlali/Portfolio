@@ -512,6 +512,10 @@ html[data-theme="light"] .theme-switcher {
   .page-side-navigation {
     display: none;
   }
+
+  .App {
+    touch-action: pan-y;
+  }
 }
 
 .navbar-brand {

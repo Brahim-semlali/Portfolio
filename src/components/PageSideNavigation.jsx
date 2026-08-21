@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { useLanguage } from "../i18n/LanguageContext";
@@ -13,11 +13,37 @@ export default function PageSideNavigation() {
     0,
     PAGE_ORDER.findIndex((path) => location.pathname === path || location.pathname.startsWith(`${path}/`))
   );
+  const touchStart = useRef(null);
 
   const goToPage = (direction) => {
     const nextIndex = Math.min(PAGE_ORDER.length - 1, Math.max(0, currentIndex + direction));
     navigate(PAGE_ORDER[nextIndex]);
   };
+
+  useEffect(() => {
+    const handleTouchStart = (event) => {
+      touchStart.current = event.changedTouches[0];
+    };
+
+    const handleTouchEnd = (event) => {
+      if (!touchStart.current) return;
+
+      const touchEnd = event.changedTouches[0];
+      const deltaX = touchEnd.clientX - touchStart.current.clientX;
+      const deltaY = touchEnd.clientY - touchStart.current.clientY;
+      touchStart.current = null;
+
+      if (Math.abs(deltaX) < 70 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+      goToPage(deltaX < 0 ? 1 : -1);
+    };
+
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchend", handleTouchEnd, { passive: true });
+    return () => {
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchend", handleTouchEnd);
+    };
+  });
 
   return (
     <nav className="page-side-navigation" aria-label={t("nav.pageNavigation")}>
