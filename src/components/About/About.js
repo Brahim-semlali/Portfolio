@@ -17,9 +17,10 @@ function About() {
       <Particle />
       <Container fluid className="about-section">
         <Container>
-          <Row style={{ justifyContent: "center", padding: "10px" }}>
+          <Row className="about-profile-row" style={{ justifyContent: "center", padding: "10px" }}>
             <Col
               md={7}
+              className="about-profile-copy"
               style={{
                 justifyContent: "center",
                 paddingTop: "30px",
@@ -36,14 +37,14 @@ function About() {
                 {t("about.title")}
                 <span className="gradient-text">{t("about.titleEnd")}</span>
               </h1>
-              <div className="glass-panel" style={{ padding: "2rem" }}>
+              <div className="glass-panel about-profile-panel" style={{ padding: "2rem" }}>
                 <Aboutcard />
               </div>
             </Col>
             <Col
               md={5}
               style={{ paddingTop: "40px", paddingBottom: "50px" }}
-              className="about-img d-flex align-items-center"
+              className="about-img about-profile-photo-col d-flex align-items-center"
             >
               <div className="hero-frame about-photo">
                 <div className="hero-frame-ring" />
