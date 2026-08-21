@@ -3626,6 +3626,13 @@ html[data-theme="light"] .hero-metric {
     animation: swipeHintIn 0.6s ease-out both;
   }
 
+  .page-swipe-hint-previous {
+    position: absolute;
+    left: 14px;
+    margin: 0;
+    padding: 0.28rem 0.65rem 0.28rem 0.5rem;
+  }
+
   .page-swipe-hint strong {
     color: var(--text-primary);
     font-family: "Outfit", sans-serif;
@@ -3636,6 +3643,10 @@ html[data-theme="light"] .hero-metric {
     color: var(--accent-light);
     font-size: 0.85rem;
     animation: swipeArrow 1.8s ease-in-out infinite;
+  }
+
+  .page-swipe-hint-previous svg {
+    animation-name: swipeArrowPrevious;
   }
 
   .page-swipe-hint:hover,
@@ -3664,6 +3675,11 @@ html[data-theme="light"] .page-swipe-hint {
 @keyframes swipeArrow {
   0%, 100% { transform: translateX(0); }
   50% { transform: translateX(4px); }
+}
+
+@keyframes swipeArrowPrevious {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-4px); }
 }
 
 @media (prefers-reduced-motion: reduce) {

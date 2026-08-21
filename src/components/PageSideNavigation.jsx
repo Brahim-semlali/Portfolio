@@ -49,6 +49,17 @@ export default function PageSideNavigation() {
 
   return (
     <nav className="page-side-navigation" aria-label={t("nav.pageNavigation")}>
+      {currentIndex > 0 && (
+        <button
+          type="button"
+          className="page-swipe-hint page-swipe-hint-previous"
+          onClick={() => goToPage(-1)}
+          aria-label={`${t("nav.previousPage")}: ${t(`nav.${PAGE_LABEL_KEYS[currentIndex - 1]}`)}`}
+        >
+          <BsChevronLeft aria-hidden="true" />
+          <strong>{t(`nav.${PAGE_LABEL_KEYS[currentIndex - 1]}`)}</strong>
+        </button>
+      )}
       {nextIndex < PAGE_ORDER.length && (
         <button
           type="button"
