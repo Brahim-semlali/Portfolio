@@ -5,24 +5,18 @@ import {
   AiFillInstagram,
   AiFillLinkedin,
   AiOutlineArrowDown,
-  AiOutlineArrowUp,
   AiOutlineCode,
   AiOutlineDatabase,
-  AiOutlineDown,
   AiOutlineMail,
-  AiOutlineMenu,
   AiOutlineMessage,
   AiOutlineSend,
-  AiOutlineTool,
-  AiOutlineUser,
   AiOutlineWifi,
   AiOutlineClose,
   AiOutlineGlobal,
   AiOutlineCheckCircle,
 } from "react-icons/ai";
-import { BsBriefcase, BsCloud, BsCpu, BsShieldCheck, BsTerminal } from "react-icons/bs";
+import { BsBriefcase, BsCloud, BsCpu, BsTerminal } from "react-icons/bs";
 import { FaFacebookF, FaReact } from "react-icons/fa";
-import profilePhoto from "../Assets/profile.jpeg";
 import blogImage from "../Assets/Projects/blog.png";
 import chatifyImage from "../Assets/Projects/chatify.png";
 import leafImage from "../Assets/Projects/leaf.png";
