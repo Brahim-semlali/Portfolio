@@ -126,7 +126,7 @@ function Github() {
       <div className="glass-panel github-calendar-wrap">
         <div className="github-calendar-toolbar">
           <div>
-            <p className="github-calendar-overline">GitHub activity</p>
+            <p className="github-calendar-overline">{t("about.githubActivity")}</p>
             <h2>{selectedYear === "last" ? t("about.recentActivity") : selectedYear}</h2>
           </div>
           <label className="github-year-control">
@@ -171,7 +171,7 @@ function Github() {
             year={selectedYear}
             blockSize={14}
             blockMargin={4}
-            color="#45e0d0"
+            color="#ff5b0b"
             fontSize={14}
           />
         </div>

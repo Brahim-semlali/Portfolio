@@ -23,7 +23,7 @@ import {
 import { FaJava, FaLock, FaGithub, FaTools, FaLink } from "react-icons/fa";
 import { DiDatabase } from "react-icons/di";
 
-const ICONS = {
+export const ICONS = {
   React: { icon: SiReact, color: "#61DAFB" },
   "React.js": { icon: SiReact, color: "#61DAFB" },
   "Next.js": { icon: SiNextdotjs, color: "#E2E8F0" },

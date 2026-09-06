@@ -1,12 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+import "./style.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { LanguageProvider } from "./i18n/LanguageContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <LanguageProvider>
+      <App />
+    </LanguageProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

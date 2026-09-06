@@ -1,0 +1,56 @@
+.animated-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  pointer-events: none;
+  background: #1a0a08;
+  isolation: isolate;
+}
+
+.animated-background__stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.animated-background__layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.animated-background__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  will-change: transform;
+}
+
+.animated-background__wash {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 38%, #ff5722, #1a0a08);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.animated-background__vignette {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent, black 90%);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animated-background__media {
+    will-change: auto;
+  }
+}

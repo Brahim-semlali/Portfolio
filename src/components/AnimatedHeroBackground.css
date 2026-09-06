@@ -1,0 +1,112 @@
+.hero-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  pointer-events: none;
+  background: #0c0706;
+}
+
+.hero-bg__wash {
+  position: absolute;
+  z-index: 0;
+  inset: -10vh 0;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(255, 87, 34, 0.55), transparent 38%),
+    radial-gradient(circle at 28% 72%, rgba(138, 23, 5, 0.4), transparent 42%),
+    radial-gradient(circle at 74% 70%, rgba(255, 91, 11, 0.32), transparent 40%);
+  animation: hero-breathe 8s ease-in-out infinite;
+}
+
+.hero-bg__stage {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 50%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100vw, calc(100vh * 9 / 16));
+  height: 100vh;
+  overflow: hidden;
+  transform: translateX(-50%);
+  isolation: isolate;
+}
+
+.hero-bg__frame,
+.hero-bg__layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hero-bg__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.hero-bg__blend {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(12, 7, 6, 0.9) 0%, rgba(12, 7, 6, 0.55) 22%, transparent 40%, transparent 60%, rgba(12, 7, 6, 0.5) 80%, rgba(12, 7, 6, 0.88) 100%);
+}
+
+.hero-bg__preload {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+@keyframes hero-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.08);
+  }
+}
+
+@media (max-width: 950px) {
+  .hero-bg__blend {
+    background: linear-gradient(90deg, rgba(12, 7, 6, 0.75) 0%, transparent 38%, transparent 68%, rgba(12, 7, 6, 0.55) 100%);
+  }
+}
+
+@media (max-width: 650px) {
+  .hero-bg__stage {
+    width: 100vw;
+  }
+
+  .hero-bg__blend {
+    background: linear-gradient(180deg, rgba(12, 7, 6, 0.18) 0%, transparent 32%, rgba(12, 7, 6, 0.32) 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg__image {
+    will-change: auto;
+  }
+
+  .hero-bg__wash {
+    animation: none;
+  }
+}

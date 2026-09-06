@@ -1,30 +1,18 @@
-import React, { useState, useEffect } from "react";
-import Preloader from "../src/components/Pre";
-import Navbar from "./components/Navbar";
-import Home from "./components/Home/Home";
-import About from "./components/About/About";
-import Projects from "./components/Projects/Projects";
-import Experience from "./components/Experiences/Experience";
-import ExperienceDetail from "./components/Experiences/ExperienceDetail";
-import Certifications from "./components/Certifications/Certifications";
-import Footer from "./components/Footer";
-import Resume from "./components/Resume/ResumeNew";
-import GradientBackground from "./components/GradientBackground";
-import { LanguageProvider } from "./i18n/LanguageContext";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
-import ScrollToTop from "./components/ScrollToTop";
-import PageSideNavigation from "./components/PageSideNavigation";
-import "./style.css";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import Preloader from "./components/Pre";
+import AnimatedHeroBackground from "./components/AnimatedHeroBackground";
+import PortfolioExperience from "./components/PortfolioExperience";
 import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const [load, upadateLoad] = useState(true);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const lockRef = useRef(false);
+
+  const selectPortrait = useCallback((index) => {
+    lockRef.current = true;
+    setActiveIndex(index);
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -35,28 +23,21 @@ function App() {
   }, []);
 
   return (
-      <LanguageProvider>
-        <Router>
-          <Preloader load={load} />
-          <div className="App" id={load ? "no-scroll" : "scroll"}>
-            <GradientBackground />
-            <Navbar />
-            <PageSideNavigation />
-            <ScrollToTop />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/project" element={<Projects />} />
-              <Route path="/experience" element={<Experience />} />
-              <Route path="/experience/:id" element={<ExperienceDetail />} />
-              <Route path="/certifications" element={<Certifications />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/resume" element={<Resume />} />
-              <Route path="*" element={<Navigate to="/" />} />
-            </Routes>
-            <Footer />
-          </div>
-        </Router>
-      </LanguageProvider>
+      <>
+        <Preloader load={load} />
+        <AnimatedHeroBackground
+          activeIndex={activeIndex}
+          setActiveIndex={setActiveIndex}
+          lockRef={lockRef}
+        />
+        <div className="App" id={load ? "no-scroll" : "scroll"}>
+          <PortfolioExperience
+            activeIndex={activeIndex}
+            setActiveIndex={setActiveIndex}
+            selectPortrait={selectPortrait}
+          />
+        </div>
+      </>
   );
 }
 
