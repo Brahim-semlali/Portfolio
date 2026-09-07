@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
 import {
   AiFillGithub,
@@ -10,13 +10,15 @@ import {
   AiOutlineMail,
   AiOutlineMessage,
   AiOutlineSend,
+  AiOutlineTool,
   AiOutlineWifi,
   AiOutlineClose,
   AiOutlineGlobal,
   AiOutlineCheckCircle,
 } from "react-icons/ai";
 import { BsBriefcase, BsCloud, BsCpu, BsTerminal } from "react-icons/bs";
-import { FaFacebookF, FaReact } from "react-icons/fa";
+import { FaFacebookF, FaJava, FaKey, FaReact } from "react-icons/fa";
+import { SiBootstrap, SiDocker, SiJira, SiJsonwebtokens, SiPostman, SiReact, SiSpringboot, SiSpringsecurity } from "react-icons/si";
 import blogImage from "../Assets/Projects/blog.png";
 import chatifyImage from "../Assets/Projects/chatify.png";
 import leafImage from "../Assets/Projects/leaf.png";
@@ -26,22 +28,24 @@ import PythonLogo from "../Assets/TechIcons/Python.svg";
 import CppLogo from "../Assets/TechIcons/C++.svg";
 import TypescriptLogo from "../Assets/TechIcons/Typescript.svg";
 import SqlLogo from "../Assets/TechIcons/SQL.svg";
+import mysqlCertificate from "../Assets/Mysql.png";
+import researchCertificate from "../Assets/research.png";
 import experienceData from "./Experiences/experienceData";
 import Github from "./About/Github";
 import Leetcode from "./About/Leetcode";
 import certifications from "../data/certifications";
-import { EXCLUDED_REPOS, PROJECT_PRIORITY, PROJECT_OVERRIDES, localizedText } from "../data/projectPriority";
+import { PROJECT_OVERRIDES, localizedText } from "../data/projectPriority";
 import { backgrounds, sectionToIndex } from "./AnimatedHeroBackground";
 import { ICONS as techIconDefinitions } from "./Projects/TechLogos";
 import { useLanguage } from "../i18n/LanguageContext";
 import "./PortfolioExperience.css";
 
 const expertise = [
-  { number: "01", icon: <FaReact />, title: "Développement Full Stack", description: "Applications web fiables, de l'interface utilisateur jusqu'à l'API.", tags: "React · Spring Boot · Django" },
-  { number: "02", icon: <AiOutlineDatabase />, title: "Bases de données", description: "Conception, gestion et exploitation de bases de données adaptées aux besoins métier.", tags: "PostgreSQL · MySQL · SQL" },
-  { number: "03", icon: <AiOutlineCode />, title: "Développement Web", description: "Interfaces modernes, responsives et accessibles pour des expériences claires.", tags: "JavaScript · TypeScript · React" },
-  { number: "04", icon: <BsCpu />, title: "IA & Machine Learning", description: "Exploration de l'intelligence artificielle et intégration de fonctionnalités ML.", tags: "Python · FastAPI · LangChain" },
-  { number: "05", icon: <BsCloud />, title: "Outils & DevOps", description: "Conteneurisation, automatisation et bonnes pratiques pour livrer efficacement.", tags: "Docker · GitHub · CI/CD" },
+  { number: "01", icon: <FaReact />, title: "Développement Full Stack", description: "Applications web fiables, de l'interface utilisateur jusqu'à l'API.", tags: "React · Spring Boot · API REST", tools: [[SiReact, "#61DAFB"], [SiSpringboot, "#6DB33F"], [SiSpringsecurity, "#6DB33F"]] },
+  { number: "02", icon: <AiOutlineDatabase />, title: "Bases de données", description: "Conception, gestion et exploitation de bases de données adaptées aux besoins métier.", tags: "PostgreSQL · MySQL · SQL · Conception", tools: [[SiDocker, "#2496ED"]] },
+  { number: "03", icon: <AiOutlineCode />, title: "Développement Web", description: "Interfaces modernes, responsives et accessibles pour des expériences claires.", tags: "JavaScript · TypeScript · React · Bootstrap", tools: [[SiReact, "#61DAFB"], [SiBootstrap, "#7952B3"]] },
+  { number: "04", icon: <BsCpu />, title: "IA & Machine Learning", description: "Exploration de l'intelligence artificielle et intégration de fonctionnalités ML.", tags: "Python · FastAPI · OAuth · JWT", tools: [[FaKey, "#3C79A5"], [SiJsonwebtokens, "#D63AFF"]] },
+  { number: "05", icon: <BsCloud />, title: "Outils & DevOps", description: "Conteneurisation, automatisation et bonnes pratiques pour livrer efficacement.", tags: "Docker · Postman · Jira · POO", tools: [[SiDocker, "#2496ED"], [SiPostman, "#FF6C37"], [SiJira, "#2684FF"]] },
 ];
 
 const techGroups = {
@@ -50,13 +54,22 @@ const techGroups = {
   Databases: ["PostgreSQL", "MySQL", "MongoDB", "PostGIS"],
   "Data & AI": ["Machine Learning", "LangChain", "RAG", "Pandas", "Data Analysis"],
   DevOps: ["Docker", "Git / GitHub", "CI/CD", "Postman", "REST API"],
-  "Tech & Other": ["VS Code", "IntelliJ IDEA", "Google Chrome", "JWT", "Swagger"],
+  "Tech & Other": ["VS Code", "IntelliJ IDEA", "Google Chrome", "JWT", "OAuth", "Spring Security", "Jira", "POO", "Conception"],
 };
 
 const projects = [
   { image: blogImage, title: "S7aFit", description: "Plateforme HealthTech avec coach IA, reconnaissance de repas, plans personnalisés et dashboard analytique.", tags: ["React", "TypeScript", "FastAPI"] },
   { image: chatifyImage, title: "Life Cycle Token", description: "Portail de gestion du cycle de vie des tokens de paiement bancaire réalisé chez Titrit Technologies.", tags: ["React", "Django REST", "PostgreSQL"] },
   { image: leafImage, title: "Gestion des stages PFE", description: "Application de gestion du cycle de vie des stages : étudiants, entreprises, encadrants et validations.", tags: ["React", "Spring Boot", "Java"] },
+];
+
+const FEATURED_REPOSITORIES = [
+  "life-cycle-token",
+  "Calorie_Mate_App_FrontEnd",
+  "Vactis-Backend",
+  "Gestion_stage_pfe_BackEnd",
+  "Learn_Strategies",
+  "Gestion_stage_pfe_FontEnd",
 ];
 
 const techLogos = {
@@ -90,10 +103,23 @@ const techLogos = {
   "Google Chrome": techIconDefinitions.Git,
   JWT: techIconDefinitions.JWT,
   Swagger: techIconDefinitions.Swagger,
+  Jira: { icon: SiJira, color: "#2684FF" },
+  OAuth: { icon: FaKey, color: "#3C79A5" },
+  "Spring Security": { icon: SiSpringsecurity, color: "#6DB33F" },
+  "POO": { icon: FaJava, color: "#E76F00" },
+  Conception: { icon: AiOutlineTool, color: "#F2B233" },
+};
+
+const certificateImages = {
+  "mysql-coursera": mysqlCertificate,
+  "research-qmul": researchCertificate,
 };
 
 function PortfolioExperience({ activeIndex = 0, setActiveIndex, selectPortrait }) {
   const { lang, setLang, t } = useLanguage();
+  const terminalHelp = lang === "en"
+    ? "Available commands:\n\n  whoami        - View user identity\n  role          - View engineering specialization\n  expertise     - View core technical domains\n  status        - View system status\n  home          - Navigate to Home\n  about         - Navigate to About section\n  education     - Navigate to Education section\n  experience    - Navigate to Experience section\n  projects      - Navigate to Projects section\n  certifications - Navigate to Certifications\n  clear         - Clear terminal screen"
+    : "Commandes disponibles :\n\n  whoami        - Voir l'identité utilisateur\n  role          - Voir la spécialisation\n  expertise     - Voir les domaines techniques\n  status        - Voir l'état du système\n  home          - Aller à l'accueil\n  about         - Ouvrir la section À propos\n  education     - Ouvrir la section Formation\n  experience    - Ouvrir la section Expérience\n  projects      - Ouvrir la section Projets\n  certifications - Ouvrir les certifications\n  clear         - Effacer l'écran du terminal";
   const content = lang === "en" ? {
     activityNav: "Days I Code",
     heroEyebrow: "HELLO, I AM",
@@ -168,6 +194,14 @@ function PortfolioExperience({ activeIndex = 0, setActiveIndex, selectPortrait }
     { ...projects[1], title: "Life Cycle Token", description: "Portal for managing the lifecycle of bank payment tokens, built at Titrit Technologies." },
     { ...projects[2], title: "PFE Internship Management", description: "Application managing the lifecycle of internships: students, companies, supervisors and approvals." },
   ] : projects;
+  const otherProjectsCard = {
+    image: null,
+    title: lang === "en" ? "Other projects" : "Autres projets",
+    description: lang === "en" ? "Explore all my public repositories on GitHub." : "Découvrez tous mes dépôts publics sur GitHub.",
+    tags: ["GitHub", lang === "en" ? "All repositories" : "Tous les dépôts"],
+    link: "https://github.com/Brahim-semlali?tab=repositories",
+    isOtherProjects: true,
+  };
   const techGroupLabels = lang === "en" ? {} : { Languages: "Langages", Frameworks: "Frameworks", Databases: "Bases de données", "Data & AI": "Data & IA", DevOps: "DevOps", "Tech & Other": "Tech & autres" };
   const navItems = [
     ["about", t("nav.about")], ["expertise", t("about.skills")], ["education", t("about.education")], ["experience", t("nav.experience")], ["projects", t("nav.projects")], ["github", content.activityNav], ["certifications", t("nav.certifications")],
@@ -177,15 +211,16 @@ function PortfolioExperience({ activeIndex = 0, setActiveIndex, selectPortrait }
   const [chatOpen, setChatOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [githubProjects, setGithubProjects] = useState([]);
+  const terminalBodyRef = useRef(null);
   const [terminalLines, setTerminalLines] = useState([
-    ["$ whoami", "brahim_semlali"], ["$ role", "Développeur Full Stack"], ["$ expertise", "React.js\nSpring Boot\nDjango REST\nPostgreSQL\nIA & Machine Learning"], ["$ status", "DISPONIBLE POUR UN STAGE"],
+    ["whoami", "brahim_semlali"], ["role", lang === "en" ? "Full Stack Developer" : "Développeur Full Stack"], ["expertise", "React.js\nSpring Boot\nDjango REST\nPostgreSQL\nIA & Machine Learning"], ["status", lang === "en" ? "AVAILABLE FOR AN INTERNSHIP" : "DISPONIBLE POUR UN STAGE"],
   ]);
 
   useEffect(() => {
     axios.get("https://api.github.com/users/Brahim-semlali/repos", { params: { per_page: 100, sort: "updated" } })
       .then(({ data }) => {
-        const repos = data.filter((repo) => !repo.fork && !EXCLUDED_REPOS.includes(repo.name));
-        repos.sort((a, b) => PROJECT_PRIORITY.indexOf(a.name) - PROJECT_PRIORITY.indexOf(b.name));
+        const repos = data.filter((repo) => FEATURED_REPOSITORIES.includes(repo.name));
+        repos.sort((a, b) => FEATURED_REPOSITORIES.indexOf(a.name) - FEATURED_REPOSITORIES.indexOf(b.name));
         setGithubProjects(repos);
       })
       .catch(() => setGithubProjects([]));
@@ -202,15 +237,21 @@ function PortfolioExperience({ activeIndex = 0, setActiveIndex, selectPortrait }
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (terminalOpen && terminalBodyRef.current) {
+      terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
+    }
+  }, [terminalLines, terminalOpen]);
+
   const scrollTo = (id) => {
     setActiveIndex(sectionToIndex(id));
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
   const terminalCommands = useMemo(() => lang === "en" ? ({
-    home: "Returning home...", about: "Opening profile...", education: "Opening education...", dossier: "Opening technical skills...", experience: "Loading experience...", projects: "Opening GitHub projects...", certifications: "Opening certifications...", clear: "__clear__", help: "Commands: home, about, education, experience, projects, certifications, clear",
+    home: "Returning home...", about: "Opening profile...", education: "Opening education...", dossier: "Opening technical skills...", experience: "Loading experience...", projects: "Opening GitHub projects...", certifications: "Opening certifications...", clear: "__clear__", help: terminalHelp,
   }) : ({
-    home: "Retour à l'accueil...", about: "Ouverture du profil...", education: "Ouverture de la formation...", dossier: "Ouverture des compétences techniques...", experience: "Chargement des expériences...", projects: "Ouverture des projets GitHub...", certifications: "Ouverture des certifications...", clear: "__clear__", help: "Commandes : home, about, education, experience, projects, certifications, clear",
-  }), [lang]);
+    home: "Retour à l'accueil...", about: "Ouverture du profil...", education: "Ouverture de la formation...", dossier: "Ouverture des compétences techniques...", experience: "Chargement des expériences...", projects: "Ouverture des projets GitHub...", certifications: "Ouverture des certifications...", clear: "__clear__", help: terminalHelp,
+  }), [lang, terminalHelp]);
   const runCommand = (event) => {
     if (event.key !== "Enter") return;
     const command = event.currentTarget.value.trim().toLowerCase();
@@ -228,12 +269,13 @@ function PortfolioExperience({ activeIndex = 0, setActiveIndex, selectPortrait }
       return {
         image: [blogImage, chatifyImage, leafImage][index % 3],
         title: localizedText(override.title, lang, repo.name.replace(/[_-]/g, " ")),
-        description: localizedText(override.description, lang, repo.description || (lang === "en" ? "Project available on my GitHub profile." : "Projet disponible sur mon profil GitHub.")),
+        description: repo.description || localizedText(override.description, lang, lang === "en" ? "Project available on my GitHub profile." : "Projet disponible sur mon profil GitHub."),
         tags: override.stack || [repo.language].filter(Boolean),
         link: repo.html_url,
       };
     })
     : localizedProjects.map((project) => ({ ...project, link: "https://github.com/Brahim-semlali" }));
+  const visibleProjects = [...displayProjects, otherProjectsCard];
 
   return (
     <div className="portfolio-shell">
@@ -275,7 +317,7 @@ function PortfolioExperience({ activeIndex = 0, setActiveIndex, selectPortrait }
           <button className="scroll-cue" onClick={() => scrollTo("about")}><span>{content.scroll}</span><AiOutlineArrowDown /></button>
         </section>
 
-        <section id="about" className="page-section about-section"><div className="section-heading reveal"><p className="eyebrow">{content.aboutTag} <i /></p><h2>{content.aboutTitle}</h2>{aboutCopy.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div><div className="section-label"><span>{content.expertiseTag}</span><i /></div><h2 id="expertise" className="display-title">{content.expertiseTitle}</h2><p className="muted-copy">{content.expertiseCopy}</p><div className="expertise-grid">{localizedExpertise.map((item, index) => <article className="expertise-card" key={item.title}><div className="card-top"><span className="card-icon">{expertise[index].icon}</span><b>0{index + 1}</b></div><h3>{item.title}</h3><p>{item.description}</p><span className="card-tags">{item.tags}</span></article>)}</div></section>
+        <section id="about" className="page-section about-section"><div className="section-heading reveal"><p className="eyebrow">{content.aboutTag} <i /></p><h2>{content.aboutTitle}</h2>{aboutCopy.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div><div className="section-label"><span>{content.expertiseTag}</span><i /></div><h2 id="expertise" className="display-title">{content.expertiseTitle}</h2><p className="muted-copy">{content.expertiseCopy}</p><div className="expertise-grid">{localizedExpertise.map((item, index) => <article className="expertise-card" key={item.title}><div className="card-top"><span className="card-icon">{expertise[index].icon}</span><b>0{index + 1}</b></div><h3>{item.title}</h3><p>{item.description}</p><div className="expertise-tools">{expertise[index].tools.map(([ToolIcon, color], toolIndex) => <ToolIcon key={`${item.title}-${toolIndex}`} style={{ color }} title={item.tags.split(" · ")[toolIndex]} />)}</div><div className="card-tags">{item.tags.split(" · ").map((tag) => <span key={tag}>{tag}</span>)}</div></article>)}</div></section>
 
         <section id="education" className="page-section education-section"><div className="education-panel"><div className="section-label"><span>{content.educationTag}</span><i /></div><h2 className="display-title education-title">{lang === "en" ? "Education" : "Formation"}</h2><div className="education-list-new"><article><b>2025 – 2027</b><h3>Master {lang === "en" ? "Information Systems Engineering" : "Ingénierie des Systèmes d&apos;Information"}</h3><p>Faculté des Sciences Semlalia</p></article><article><b>2024 – 2025</b><h3>{lang === "en" ? "Professional Bachelor in Computer Engineering" : "Licence Professionnelle en Génie Informatique"}</h3><p>FPT Taroudant · {lang === "en" ? "Good honours" : "Mention Bien"}</p></article><article><b>2022 – 2024</b><h3>{lang === "en" ? "University Diploma in Computer Engineering" : "DEUP en Génie Informatique"}</h3><p>FPT Taroudant · {lang === "en" ? "Good standing" : "Mention Assez Bien"}</p></article></div><p className="language-line"><strong>{lang === "en" ? "Languages:" : "Langues :"}</strong> {lang === "en" ? "Arabic (native), French (good), English (intermediate)." : "Arabe (langue maternelle), Français (bon niveau), Anglais (intermédiaire)."}</p></div></section>
 
@@ -283,9 +325,9 @@ function PortfolioExperience({ activeIndex = 0, setActiveIndex, selectPortrait }
 
         <section id="experience" className="page-section experience-section"><div className="section-label"><span>{content.experienceTag}</span><i /></div><h2 className="display-title">{content.experienceTitle}</h2><div className="timeline">{[...experienceData].reverse().map((item, index) => <article className={`timeline-item ${index % 2 ? "right" : "left"}`} key={item.id}><div className="timeline-dot"><BsBriefcase /></div><div className="timeline-date">{item.period}</div><div className="experience-card"><span className="card-number">0{index + 1}</span><p className="orange-label">{item.location}</p><h3>{item.role}</h3><h4>{item.company}</h4><p>{item.shortDescription}</p><p>{item.fullDescription}</p><ul>{item.tasks.map((task) => <li key={task}>{task}</li>)}</ul><div className="tag-list">{item.stack.map((tag) => <span key={tag}>{tag}</span>)}</div></div></article>)}</div></section>
 
-        <section id="projects" className="page-section projects-section"><div className="center-heading"><p className="eyebrow">{content.projectsTag} <i /></p><h2 className="display-title">{content.projectsTitle}</h2><p className="muted-copy">{content.projectsCopy}</p></div><div className="projects-grid">{displayProjects.map((project, index) => <article className="project-card" key={project.title}><div className="project-image"><img src={project.image} alt="" /><span>0{index + 1}</span></div><div className="project-content"><h3>{project.title}</h3><p>{project.description}</p><div className="tag-list">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div><a className="project-link" href={project.link} target="_blank" rel="noreferrer">{lang === "en" ? "VIEW ON GITHUB" : "VOIR SUR GITHUB"} <AiOutlineArrowDown /></a></div></article>)}</div></section>
+        <section id="projects" className="page-section projects-section"><div className="center-heading"><p className="eyebrow">{content.projectsTag} <i /></p><h2 className="display-title">{content.projectsTitle}</h2><p className="muted-copy">{content.projectsCopy}</p></div><div className="projects-grid">{visibleProjects.map((project, index) => <article className={`project-card ${project.isOtherProjects ? "other-projects-card" : ""}`} key={project.title}><div className="project-image">{project.image ? <img src={project.image} alt="" /> : <AiFillGithub aria-hidden="true" />}<span>0{index + 1}</span></div><div className="project-content"><h3>{project.title}</h3><p>{project.description}</p><div className="tag-list">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div><a className="project-link" href={project.link} target="_blank" rel="noreferrer">{lang === "en" ? "VIEW ON GITHUB" : "VOIR SUR GITHUB"} <AiOutlineArrowDown /></a></div></article>)}</div></section>
 
-        <section id="certifications" className="page-section certifications-section"><div className="section-label"><span>{content.certificationsTag}</span><i /></div><h2 className="display-title">{content.certificationsTitle}</h2><div className="cert-grid">{certifications.map((cert, index) => <article className="cert-card" key={cert.id}><div className="cert-icon"><AiOutlineCheckCircle /></div><span className="card-number">0{index + 1}</span><p className="orange-label">{cert.year} · {cert.issuer}</p><h3>{cert.title}</h3><p>{cert.description}</p><div className="tag-list">{cert.skills.map((skill) => <span key={skill}>{skill}</span>)}</div><a href={cert.verifyUrl} target="_blank" rel="noreferrer">{lang === "en" ? "VERIFY CREDENTIAL" : "VÉRIFIER LE CERTIFICAT"} <AiOutlineArrowDown /></a></article>)}</div></section>
+        <section id="certifications" className="page-section certifications-section"><div className="section-label"><span>{content.certificationsTag}</span><i /></div><h2 className="display-title">{content.certificationsTitle}</h2><div className="cert-grid">{certifications.map((cert, index) => <article className="cert-card" key={cert.id}><div className="cert-image-wrap">{certificateImages[cert.id] ? <img src={certificateImages[cert.id]} alt={`${cert.title} certificate`} /> : <div className="cert-image-fallback"><AiOutlineCheckCircle /></div>}<span className="card-number">0{index + 1}</span></div><div className="cert-content"><p className="orange-label">{cert.issuer}</p><h3>{cert.title}</h3><p>{cert.year} · {cert.description}</p><div className="tag-list">{cert.skills.map((skill) => <span key={skill}>{skill}</span>)}</div><a href={cert.verifyUrl} target="_blank" rel="noreferrer">{lang === "en" ? "VERIFY CREDENTIAL" : "VÉRIFIER LE CERTIFICAT"} <AiOutlineArrowDown /></a></div></article>)}</div></section>
 
         <Github />
         <Leetcode />
@@ -296,12 +338,12 @@ function PortfolioExperience({ activeIndex = 0, setActiveIndex, selectPortrait }
       {terminalOpen && (
         <div className="terminal-backdrop" onClick={(event) => event.target === event.currentTarget && setTerminalOpen(false)}>
           <div className="terminal-window">
-            <div className="terminal-bar"><span><i /><i /><i /></span><strong>BS // BRAHIM SEMLALI</strong><button onClick={() => setTerminalOpen(false)}><AiOutlineClose /> {lang === "en" ? "CLOSE" : "FERMER"}</button></div>
-            <div className="terminal-body">
+            <div className="terminal-bar"><span><i /><i /><i /></span><strong>bash — bs@portfolio: ~</strong><button onClick={() => setTerminalOpen(false)}><AiOutlineClose /> {lang === "en" ? "CLOSE" : "FERMER"}</button></div>
+            <div className="terminal-body" ref={terminalBodyRef}>
               {terminalLines.map(([command, response], index) => (
-                <div className="terminal-line" key={command + index}><strong>{command}</strong><p className={response === "ONLINE" ? "online" : ""}>{response}</p></div>
+                <div className="terminal-line" key={command + index}><strong><span className="terminal-prompt">bs@portfolio:~$</span> {command}</strong><p className={response === "ONLINE" ? "online" : ""}>{response}</p></div>
               ))}
-              <div className="terminal-input"><strong>$</strong><input autoFocus onKeyDown={runCommand} placeholder={lang === "en" ? "type a command or 'help'..." : "entrez une commande ou 'help'..."} aria-label={lang === "en" ? "Terminal command" : "Commande terminal"} /></div>
+              <div className="terminal-input"><strong><span className="terminal-prompt">bs@portfolio:~$</span></strong><input autoFocus onKeyDown={runCommand} placeholder={lang === "en" ? "Type a command or 'help'..." : "Entrez une commande ou 'help'..."} aria-label={lang === "en" ? "Terminal command" : "Commande terminal"} /></div>
             </div>
           </div>
         </div>
