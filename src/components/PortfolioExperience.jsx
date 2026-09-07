@@ -8,17 +8,17 @@ import {
   AiOutlineCode,
   AiOutlineDatabase,
   AiOutlineMail,
+  AiOutlineMenu,
   AiOutlineMessage,
   AiOutlineSend,
   AiOutlineTool,
-  AiOutlineWifi,
   AiOutlineClose,
   AiOutlineGlobal,
   AiOutlineCheckCircle,
 } from "react-icons/ai";
 import { BsBriefcase, BsCloud, BsCpu, BsTerminal } from "react-icons/bs";
-import { FaFacebookF, FaJava, FaKey, FaReact } from "react-icons/fa";
-import { SiBootstrap, SiDocker, SiJira, SiJsonwebtokens, SiPostman, SiReact, SiSpringboot, SiSpringsecurity } from "react-icons/si";
+import { FaFacebookF, FaJava, FaKey, FaLink, FaReact } from "react-icons/fa";
+import { SiBootstrap, SiDocker, SiFastapi, SiJira, SiPostgresql, SiPostman, SiPython, SiReact, SiSpringboot, SiSpringsecurity } from "react-icons/si";
 import blogImage from "../Assets/Projects/blog.png";
 import chatifyImage from "../Assets/Projects/chatify.png";
 import leafImage from "../Assets/Projects/leaf.png";
@@ -41,11 +41,11 @@ import { useLanguage } from "../i18n/LanguageContext";
 import "./PortfolioExperience.css";
 
 const expertise = [
-  { number: "01", icon: <FaReact />, title: "Développement Full Stack", description: "Applications web fiables, de l'interface utilisateur jusqu'à l'API.", tags: "React · Spring Boot · API REST", tools: [[SiReact, "#61DAFB"], [SiSpringboot, "#6DB33F"], [SiSpringsecurity, "#6DB33F"]] },
-  { number: "02", icon: <AiOutlineDatabase />, title: "Bases de données", description: "Conception, gestion et exploitation de bases de données adaptées aux besoins métier.", tags: "PostgreSQL · MySQL · SQL · Conception", tools: [[SiDocker, "#2496ED"]] },
-  { number: "03", icon: <AiOutlineCode />, title: "Développement Web", description: "Interfaces modernes, responsives et accessibles pour des expériences claires.", tags: "JavaScript · TypeScript · React · Bootstrap", tools: [[SiReact, "#61DAFB"], [SiBootstrap, "#7952B3"]] },
-  { number: "04", icon: <BsCpu />, title: "IA & Machine Learning", description: "Exploration de l'intelligence artificielle et intégration de fonctionnalités ML.", tags: "Python · FastAPI · OAuth · JWT", tools: [[FaKey, "#3C79A5"], [SiJsonwebtokens, "#D63AFF"]] },
-  { number: "05", icon: <BsCloud />, title: "Outils & DevOps", description: "Conteneurisation, automatisation et bonnes pratiques pour livrer efficacement.", tags: "Docker · Postman · Jira · POO", tools: [[SiDocker, "#2496ED"], [SiPostman, "#FF6C37"], [SiJira, "#2684FF"]] },
+  { number: "01", icon: <FaReact />, title: "Développement Full Stack", description: "Applications web fiables, de l'interface utilisateur jusqu'à l'API.", tags: "React · Spring Boot · API REST", tools: [[SiReact, "#61DAFB"], [SiSpringboot, "#6DB33F"], [FaLink, "#45E0D0"]] },
+  { number: "02", icon: <AiOutlineDatabase />, title: "Bases de données", description: "Conception, gestion et exploitation de bases de données adaptées aux besoins métier.", tags: "PostgreSQL · MySQL · SQL · Conception", tools: [[SiPostgresql, "#4169E1"]] },
+  { number: "03", icon: <AiOutlineCode />, title: "Interfaces & Frontend", description: "Interfaces modernes, responsives et accessibles pour des expériences claires.", tags: "JavaScript · TypeScript · React · Bootstrap", tools: [[SiReact, "#61DAFB"], [SiBootstrap, "#7952B3"]] },
+  { number: "04", icon: <BsCpu />, title: "Data & Intelligence artificielle", description: "Analyse de données, modèles prédictifs et intégration de fonctionnalités intelligentes.", tags: "Python · FastAPI · LangChain · Machine Learning", tools: [[SiPython, "#3776AB"], [SiFastapi, "#009688"]] },
+  { number: "05", icon: <BsCloud />, title: "Architecture & DevOps", description: "Conception logicielle, sécurité, automatisation et livraison de solutions fiables.", tags: "Docker · Postman · Jira · POO", tools: [[SiDocker, "#2496ED"], [SiPostman, "#FF6C37"], [SiJira, "#2684FF"]] },
 ];
 
 const techGroups = {
@@ -115,6 +115,36 @@ const certificateImages = {
   "research-qmul": researchCertificate,
 };
 
+function TechnologyPanel({ activeTech, setActiveTech, lang, techGroupLabels, description }) {
+  return (
+    <section className="combined-tech-section page-section">
+      <div className="combined-tech-panel">
+        <div className="combined-tech-heading">
+          <div>
+            <span className="section-label">{lang === "en" ? "TECH STACK" : "STACK TECHNIQUE"}</span>
+            <h2 className="display-title">{lang === "en" ? <>Core technologies &amp;<br /><em>engineering stack</em></> : <>Technologies clés &amp;<br /><em>stack d&apos;ingénierie</em></>}</h2>
+          </div>
+          <p>{description}</p>
+        </div>
+        <div className="tech-tabs">{Object.keys(techGroups).map((group, index) => <button className={activeTech === group ? "active" : ""} key={group} onClick={() => setActiveTech(group)}><span>0{index + 1}</span>{techGroupLabels[group] || group}</button>)}</div>
+        <div className="tech-grid">{techGroups[activeTech].map((tech, index) => { const logo = techLogos[tech]; const Logo = logo?.icon; return <article className="tech-card" key={tech} style={{ "--card-index": index }}><div className="tech-symbol">{typeof logo === "string" ? <img src={logo} alt={`${tech} logo`} /> : Logo ? <Logo style={{ color: logo.color }} aria-label={`${tech} logo`} /> : tech.slice(0, 2).toUpperCase()}</div><h3>{tech}</h3><p>{techGroupLabels[activeTech] || activeTech}</p><span>0{index + 1}</span></article>; })}</div>
+      </div>
+    </section>
+  );
+}
+
+function ExpertiseTechnologyPanel({ localizedExpertise, expertise, activeTech, setActiveTech, lang, techGroupLabels, description, title, copy }) {
+  return (
+    <section id="expertise" className="combined-expertise-section page-section">
+      <div className="section-label"><span>{lang === "en" ? "WHAT I DO" : "CE QUE JE FAIS"}</span><i /></div>
+      <h2 className="display-title">{title}</h2>
+      <p className="muted-copy">{copy}</p>
+      <div className="expertise-grid">{localizedExpertise.map((item, index) => <article className="expertise-card" key={item.title}><div className="card-top"><span className="card-icon">{expertise[index].icon}</span><b>0{index + 1}</b></div><h3>{item.title}</h3><p>{item.description}</p><div className="expertise-tools">{expertise[index].tools.map(([ToolIcon, color], toolIndex) => <ToolIcon key={`${item.title}-${toolIndex}`} style={{ color }} title={item.tags.split(" · ")[toolIndex]} />)}</div><div className="card-tags">{item.tags.split(" · ").map((tag) => <span key={tag}>{tag}</span>)}</div></article>)}</div>
+      <TechnologyPanel activeTech={activeTech} setActiveTech={setActiveTech} lang={lang} techGroupLabels={techGroupLabels} description={description} />
+    </section>
+  );
+}
+
 function PortfolioExperience({ activeIndex = 0, setActiveIndex, selectPortrait }) {
   const { lang, setLang, t } = useLanguage();
   const terminalHelp = lang === "en"
@@ -133,7 +163,7 @@ function PortfolioExperience({ activeIndex = 0, setActiveIndex, selectPortrait }
     aboutTag: "ABOUT",
     aboutTitle: <>Develop with method,<br /><em>learn with curiosity.</em></>,
     expertiseTag: "WHAT I DO",
-    expertiseTitle: "Skills & Expertise",
+    expertiseTitle: "Skills & Technologies",
     expertiseCopy: "Solutions built around technology and business needs.",
     educationTag: "EDUCATION",
     dossierTag: "TECHNICAL DOSSIER",
@@ -159,7 +189,7 @@ function PortfolioExperience({ activeIndex = 0, setActiveIndex, selectPortrait }
     aboutTag: "À PROPOS",
     aboutTitle: <>Développer avec méthode,<br /><em>apprendre avec curiosité.</em></>,
     expertiseTag: "CE QUE JE FAIS",
-    expertiseTitle: "Compétences & Expertise",
+    expertiseTitle: "Compétences & Technologies",
     expertiseCopy: "Des solutions construites autour de la technique et des besoins métier.",
     educationTag: "FORMATION",
     dossierTag: "DOSSIER TECHNIQUE",
@@ -204,11 +234,12 @@ function PortfolioExperience({ activeIndex = 0, setActiveIndex, selectPortrait }
   };
   const techGroupLabels = lang === "en" ? {} : { Languages: "Langages", Frameworks: "Frameworks", Databases: "Bases de données", "Data & AI": "Data & IA", DevOps: "DevOps", "Tech & Other": "Tech & autres" };
   const navItems = [
-    ["about", t("nav.about")], ["expertise", t("about.skills")], ["education", t("about.education")], ["experience", t("nav.experience")], ["projects", t("nav.projects")], ["github", content.activityNav], ["certifications", t("nav.certifications")],
+    ["about", t("nav.about")], ["education", t("about.education")], ["expertise", t("about.skills")], ["experience", t("nav.experience")], ["projects", t("nav.projects")], ["github", content.activityNav], ["certifications", t("nav.certifications")],
   ];
   const [activeTech, setActiveTech] = useState("Frameworks");
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [githubProjects, setGithubProjects] = useState([]);
   const terminalBodyRef = useRef(null);
@@ -244,13 +275,14 @@ function PortfolioExperience({ activeIndex = 0, setActiveIndex, selectPortrait }
   }, [terminalLines, terminalOpen]);
 
   const scrollTo = (id) => {
+    setMobileMenuOpen(false);
     setActiveIndex(sectionToIndex(id));
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
   const terminalCommands = useMemo(() => lang === "en" ? ({
-    home: "Returning home...", about: "Opening profile...", education: "Opening education...", dossier: "Opening technical skills...", experience: "Loading experience...", projects: "Opening GitHub projects...", certifications: "Opening certifications...", clear: "__clear__", help: terminalHelp,
+    home: "Returning home...", about: "Opening profile...", education: "Opening education...", dossier: "Opening technical skills...", expertise: "Opening skills and technologies...", experience: "Loading experience...", projects: "Opening GitHub projects...", certifications: "Opening certifications...", clear: "__clear__", help: terminalHelp,
   }) : ({
-    home: "Retour à l'accueil...", about: "Ouverture du profil...", education: "Ouverture de la formation...", dossier: "Ouverture des compétences techniques...", experience: "Chargement des expériences...", projects: "Ouverture des projets GitHub...", certifications: "Ouverture des certifications...", clear: "__clear__", help: terminalHelp,
+    home: "Retour à l'accueil...", about: "Ouverture du profil...", education: "Ouverture de la formation...", dossier: "Ouverture des compétences techniques...", expertise: "Ouverture des compétences et technologies...", experience: "Chargement des expériences...", projects: "Ouverture des projets GitHub...", certifications: "Ouverture des certifications...", clear: "__clear__", help: terminalHelp,
   }), [lang, terminalHelp]);
   const runCommand = (event) => {
     if (event.key !== "Enter") return;
@@ -259,7 +291,7 @@ function PortfolioExperience({ activeIndex = 0, setActiveIndex, selectPortrait }
     if (response === "__clear__") setTerminalLines([]);
     else {
       setTerminalLines((lines) => [...lines, [`$ ${command}`, response]]);
-      if (terminalCommands[command] && command !== "help") { setTerminalOpen(false); scrollTo(command); }
+      if (terminalCommands[command] && command !== "help") { setTerminalOpen(false); scrollTo(command === "dossier" ? "expertise" : command); }
     }
     event.currentTarget.value = "";
   };
@@ -281,13 +313,13 @@ function PortfolioExperience({ activeIndex = 0, setActiveIndex, selectPortrait }
     <div className="portfolio-shell">
       <header className="portfolio-header">
         <button className="brand-mark" onClick={() => scrollTo("home")} aria-label={t("nav.home")}><span>BS</span><small>BRAHIM<br />SEMLALI</small></button>
-        <nav className="main-nav" aria-label={t("nav.pageNavigation")}>
+        <button className="mobile-menu-toggle" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label={mobileMenuOpen ? "Close menu" : "Open menu"} aria-expanded={mobileMenuOpen}><AiOutlineMenu /></button>
+        <nav className={`main-nav ${mobileMenuOpen ? "open" : ""}`} aria-label={t("nav.pageNavigation")}>
           {navItems.map(([id, label]) => <button key={id} className={activeSection === id ? "active" : ""} onClick={() => scrollTo(id)}>{label}</button>)}
         </nav>
         <button className="header-cta" onClick={() => scrollTo("contact")}>LET&apos;S BUILD SOMETHING <AiOutlineArrowDown /></button>
       </header>
       <div className="side-tools">
-        <button aria-label="Toggle sound"><AiOutlineWifi /></button>
         <button aria-label="Change language" onClick={() => setLang(lang === "fr" ? "en" : "fr")}><AiOutlineGlobal /><span className="language-toggle-label">{lang.toUpperCase()}</span></button>
       </div>
       <button className="terminal-launcher" onClick={() => setTerminalOpen(true)} aria-label="Open system directory"><BsTerminal /></button>
@@ -317,11 +349,11 @@ function PortfolioExperience({ activeIndex = 0, setActiveIndex, selectPortrait }
           <button className="scroll-cue" onClick={() => scrollTo("about")}><span>{content.scroll}</span><AiOutlineArrowDown /></button>
         </section>
 
-        <section id="about" className="page-section about-section"><div className="section-heading reveal"><p className="eyebrow">{content.aboutTag} <i /></p><h2>{content.aboutTitle}</h2>{aboutCopy.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div><div className="section-label"><span>{content.expertiseTag}</span><i /></div><h2 id="expertise" className="display-title">{content.expertiseTitle}</h2><p className="muted-copy">{content.expertiseCopy}</p><div className="expertise-grid">{localizedExpertise.map((item, index) => <article className="expertise-card" key={item.title}><div className="card-top"><span className="card-icon">{expertise[index].icon}</span><b>0{index + 1}</b></div><h3>{item.title}</h3><p>{item.description}</p><div className="expertise-tools">{expertise[index].tools.map(([ToolIcon, color], toolIndex) => <ToolIcon key={`${item.title}-${toolIndex}`} style={{ color }} title={item.tags.split(" · ")[toolIndex]} />)}</div><div className="card-tags">{item.tags.split(" · ").map((tag) => <span key={tag}>{tag}</span>)}</div></article>)}</div></section>
+        <section id="about" className="page-section about-section"><div className="section-heading reveal"><p className="eyebrow">{content.aboutTag} <i /></p><h2>{content.aboutTitle}</h2>{aboutCopy.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div><div className="section-label"><span>{content.expertiseTag}</span><i /></div><h2 id="expertise-legacy" className="display-title">{content.expertiseTitle}</h2><p className="muted-copy">{content.expertiseCopy}</p><div className="expertise-grid">{localizedExpertise.map((item, index) => <article className="expertise-card" key={item.title}><div className="card-top"><span className="card-icon">{expertise[index].icon}</span><b>0{index + 1}</b></div><h3>{item.title}</h3><p>{item.description}</p><div className="expertise-tools">{expertise[index].tools.map(([ToolIcon, color], toolIndex) => <ToolIcon key={`${item.title}-${toolIndex}`} style={{ color }} title={item.tags.split(" · ")[toolIndex]} />)}</div><div className="card-tags">{item.tags.split(" · ").map((tag) => <span key={tag}>{tag}</span>)}</div></article>)}</div><div className="combined-tech-block"><div className="combined-tech-heading"><div><span className="section-label">{lang === "en" ? "TECH STACK" : "STACK TECHNIQUE"}</span><h3>{lang === "en" ? "Core technologies" : "Technologies clés"}</h3></div><p>{content.dossierCopy}</p></div><div className="tech-tabs">{Object.keys(techGroups).map((group, index) => <button className={activeTech === group ? "active" : ""} key={group} onClick={() => setActiveTech(group)}><span>0{index + 1}</span>{techGroupLabels[group] || group}</button>)}</div><div className="tech-grid">{techGroups[activeTech].map((tech, index) => { const logo = techLogos[tech]; const Logo = logo?.icon; return <article className="tech-card" key={tech} style={{ "--card-index": index }}><div className="tech-symbol">{typeof logo === "string" ? <img src={logo} alt={`${tech} logo`} /> : Logo ? <Logo style={{ color: logo.color }} aria-label={`${tech} logo`} /> : tech.slice(0, 2).toUpperCase()}</div><h3>{tech}</h3><p>{techGroupLabels[activeTech] || activeTech}</p><span>0{index + 1}</span></article>; })}</div></div></section>
 
         <section id="education" className="page-section education-section"><div className="education-panel"><div className="section-label"><span>{content.educationTag}</span><i /></div><h2 className="display-title education-title">{lang === "en" ? "Education" : "Formation"}</h2><div className="education-list-new"><article><b>2025 – 2027</b><h3>Master {lang === "en" ? "Information Systems Engineering" : "Ingénierie des Systèmes d&apos;Information"}</h3><p>Faculté des Sciences Semlalia</p></article><article><b>2024 – 2025</b><h3>{lang === "en" ? "Professional Bachelor in Computer Engineering" : "Licence Professionnelle en Génie Informatique"}</h3><p>FPT Taroudant · {lang === "en" ? "Good honours" : "Mention Bien"}</p></article><article><b>2022 – 2024</b><h3>{lang === "en" ? "University Diploma in Computer Engineering" : "DEUP en Génie Informatique"}</h3><p>FPT Taroudant · {lang === "en" ? "Good standing" : "Mention Assez Bien"}</p></article></div><p className="language-line"><strong>{lang === "en" ? "Languages:" : "Langues :"}</strong> {lang === "en" ? "Arabic (native), French (good), English (intermediate)." : "Arabe (langue maternelle), Français (bon niveau), Anglais (intermédiaire)."}</p></div></section>
 
-        <section id="dossier" className="page-section dossier-section"><div className="section-label"><span>{content.dossierTag}</span><i /></div><h2 className="display-title">{content.dossierTitle}</h2><p className="muted-copy">{content.dossierCopy}</p><div className="tech-tabs">{Object.keys(techGroups).map((group, index) => <button className={activeTech === group ? "active" : ""} key={group} onClick={() => setActiveTech(group)}><span>0{index + 1}</span>{techGroupLabels[group] || group}</button>)}</div><div className="tech-grid">{techGroups[activeTech].map((tech, index) => { const logo = techLogos[tech]; const Logo = logo?.icon; return <article className="tech-card" key={tech} style={{ "--card-index": index }}><div className="tech-symbol">{typeof logo === "string" ? <img src={logo} alt={`${tech} logo`} /> : Logo ? <Logo style={{ color: logo.color }} aria-label={`${tech} logo`} /> : tech.slice(0, 2).toUpperCase()}</div><h3>{tech}</h3><p>{techGroupLabels[activeTech] || activeTech}</p><span>0{index + 1}</span></article>; })}</div></section>
+        <ExpertiseTechnologyPanel localizedExpertise={localizedExpertise} expertise={expertise} activeTech={activeTech} setActiveTech={setActiveTech} lang={lang} techGroupLabels={techGroupLabels} description={content.dossierCopy} title={content.expertiseTitle} copy={content.expertiseCopy} />
 
         <section id="experience" className="page-section experience-section"><div className="section-label"><span>{content.experienceTag}</span><i /></div><h2 className="display-title">{content.experienceTitle}</h2><div className="timeline">{[...experienceData].reverse().map((item, index) => <article className={`timeline-item ${index % 2 ? "right" : "left"}`} key={item.id}><div className="timeline-dot"><BsBriefcase /></div><div className="timeline-date">{item.period}</div><div className="experience-card"><span className="card-number">0{index + 1}</span><p className="orange-label">{item.location}</p><h3>{item.role}</h3><h4>{item.company}</h4><p>{item.shortDescription}</p><p>{item.fullDescription}</p><ul>{item.tasks.map((task) => <li key={task}>{task}</li>)}</ul><div className="tag-list">{item.stack.map((tag) => <span key={tag}>{tag}</span>)}</div></div></article>)}</div></section>
 
