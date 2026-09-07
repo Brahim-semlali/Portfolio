@@ -311,7 +311,7 @@ main { position: relative; z-index: 3; }.page-section { min-height: 100vh; paddi
 .portfolio-shell .project-image::after { background: linear-gradient(180deg, transparent 52%, rgba(9, 8, 9, .55)); content: ''; inset: 0; pointer-events: none; position: absolute; }
 .portfolio-shell .project-image img { display: block; filter: saturate(.9); transition: filter .45s ease, transform .45s ease; }
 .portfolio-shell .other-projects-card .project-image { align-items: center; background: radial-gradient(circle at 50% 42%, rgba(255, 91, 11, .28), transparent 46%), #17100e; display: flex; justify-content: center; }
-.portfolio-shell .other-projects-card { flex-basis: 280px; }
+.portfolio-shell .other-projects-card { align-self: start; flex-basis: auto; justify-self: start; width: 280px; }
 .portfolio-shell .other-projects-card .project-image { aspect-ratio: 16 / 7; }
 .portfolio-shell .other-projects-card .project-image svg { font-size: 48px; }
 .portfolio-shell .other-projects-card .project-content { padding: 17px; }
@@ -336,6 +336,7 @@ main { position: relative; z-index: 3; }.page-section { min-height: 100vh; paddi
 	.portfolio-shell .center-heading { margin-bottom: 35px; }
 	.portfolio-shell .projects-grid { grid-template-columns: 1fr; }
 	.portfolio-shell .project-content p { min-height: 0; }
+	.portfolio-shell .other-projects-card { width: min(280px, 100%); }
 }
 
 /* Responsive LeetCode dashboard. */
