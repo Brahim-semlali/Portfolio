@@ -88,7 +88,7 @@ main { position: relative; z-index: 3; }.page-section { min-height: 100vh; paddi
 .about-section > #expertise-legacy,
 .about-section > .muted-copy,
 .about-section > .expertise-grid { display: none; }
-.combined-expertise-section { background: linear-gradient(90deg, rgba(8, 12, 17, .98) 0%, rgba(8, 12, 17, .92) 44%, rgba(25, 15, 12, .62) 100%); min-height: auto; padding-bottom: 110px; padding-top: 105px; }
+.combined-expertise-section { background: linear-gradient(90deg, rgba(8, 12, 17, .96) 0%, rgba(8, 12, 17, .78) 42%, rgba(25, 15, 12, .36) 100%); min-height: auto; padding-bottom: 110px; padding-top: 105px; }
 .combined-expertise-section > .section-label { color: var(--orange-bright); margin: 0 0 13px; }
 .combined-expertise-section > .display-title { color: var(--cream); margin-top: 0; }
 .combined-expertise-section > .muted-copy { color: rgba(255,255,255,.64); }
@@ -155,7 +155,7 @@ main { position: relative; z-index: 3; }.page-section { min-height: 100vh; paddi
 	.combined-tech-panel { border-radius: 17px; padding: 22px 14px; }
 	.combined-tech-panel::before { left: 14px; right: 14px; }
 	.combined-tech-panel .combined-tech-heading { align-items: flex-start; }
-	.combined-expertise-section { background: linear-gradient(180deg, rgba(8, 12, 17, .97), rgba(25, 15, 12, .68)); padding: 75px 20px 80px; }
+	.combined-expertise-section { background: linear-gradient(180deg, rgba(8, 12, 17, .95), rgba(25, 15, 12, .48)); padding: 75px 20px 80px; }
 	.combined-expertise-section > .expertise-grid { margin-top: 30px; }
 	.combined-expertise-section .combined-tech-section { padding-top: 36px; }
 	.portfolio-shell .about-section { padding-bottom: 45px; }
@@ -242,7 +242,7 @@ main { position: relative; z-index: 3; }.page-section { min-height: 100vh; paddi
 @media (max-width: 650px) {
 	.portfolio-shell { overflow: clip; }
 	.fixed-portrait { inset: 0; height: 100vh; }
-	.fixed-portrait img { object-position: 62% 12%; opacity: .28; }
+	.fixed-portrait img { object-position: 62% 12%; opacity: .42; }
 	.portrait-overlay { background: linear-gradient(90deg, rgba(19, 8, 5, .86), rgba(47, 14, 7, .42)), linear-gradient(0deg, rgba(13, 7, 5, .9), transparent 52%, rgba(15, 7, 4, .42)); }
 	.portfolio-header { gap: 10px; }
 	.brand-mark { flex-shrink: 0; }
@@ -262,8 +262,9 @@ main { position: relative; z-index: 3; }.page-section { min-height: 100vh; paddi
 	.portfolio-shell .timeline-item { min-height: 0; margin-bottom: 38px; }
 	.portfolio-shell .timeline-item.left .experience-card,
 	.portfolio-shell .timeline-item.right .experience-card { left: 42px !important; right: auto !important; position: relative !important; top: 0; width: calc(100% - 42px); }
+	.portfolio-shell .timeline-item { padding-top: 48px; }
 	.portfolio-shell .timeline-date,
-	.portfolio-shell .timeline-item.left .timeline-date { left: 42px; margin: 0 0 12px; padding-top: 58px; position: relative; right: auto; top: 0; }
+	.portfolio-shell .timeline-item.left .timeline-date { left: 42px; margin: 0 0 12px; padding: 0; position: relative; right: auto; top: 0; }
 	.portfolio-shell .timeline-dot { left: -14px; top: 0; }
 	.portfolio-shell .timeline::before { left: 8px; }
 	.portfolio-shell #github { padding: 75px 20px; }
@@ -310,6 +311,13 @@ main { position: relative; z-index: 3; }.page-section { min-height: 100vh; paddi
 .portfolio-shell .project-image::after { background: linear-gradient(180deg, transparent 52%, rgba(9, 8, 9, .55)); content: ''; inset: 0; pointer-events: none; position: absolute; }
 .portfolio-shell .project-image img { display: block; filter: saturate(.9); transition: filter .45s ease, transform .45s ease; }
 .portfolio-shell .other-projects-card .project-image { align-items: center; background: radial-gradient(circle at 50% 42%, rgba(255, 91, 11, .28), transparent 46%), #17100e; display: flex; justify-content: center; }
+.portfolio-shell .other-projects-card { flex-basis: 280px; }
+.portfolio-shell .other-projects-card .project-image { aspect-ratio: 16 / 7; }
+.portfolio-shell .other-projects-card .project-image svg { font-size: 48px; }
+.portfolio-shell .other-projects-card .project-content { padding: 17px; }
+.portfolio-shell .other-projects-card .project-content h3 { font-size: 16px; }
+.portfolio-shell .other-projects-card .project-content p { font-size: 11px; min-height: 0; }
+.portfolio-shell .other-projects-card .tag-list { margin-top: 12px; }
 .portfolio-shell .other-projects-card .project-image svg { color: var(--orange-bright); font-size: 70px; opacity: .9; }
 .portfolio-shell .other-projects-card:hover .project-image svg { transform: scale(1.08) rotate(-4deg); }
 .portfolio-shell .project-card:hover .project-image img { filter: saturate(1.12); transform: scale(1.055); }

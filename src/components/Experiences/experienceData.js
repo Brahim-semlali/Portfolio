@@ -33,7 +33,7 @@ const experienceData = [
         id: "orchid-island",
         company: "Orchid Island",
         role: "Développeur Full Stack (Stage)",
-        period: "2025",
+        period: "2026",
         location: "Maroc",
         logo: "/Images/experience/orchid-logo.png",
         shortDescription:

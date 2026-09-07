@@ -364,7 +364,7 @@ function PortfolioExperience({ activeIndex = 0, setActiveIndex, selectPortrait }
         <Github />
         <Leetcode />
 
-        <section id="contact" className="contact-section page-section"><div><p className="eyebrow">HAVE A PROJECT IN MIND? <i /></p><h2>Let&apos;s make something<br /><em>meaningful.</em></h2><a className="primary-button" href="mailto:semlalibrahim34@gmail.com">START A CONVERSATION <AiOutlineSend /></a></div><div className="contact-meta"><span>AO // SYSTEM READY</span><strong>Available for meaningful collaborations</strong><a href="mailto:semlalibrahim34@gmail.com">semlalibrahim34@gmail.com</a><small>© 2026 Abderrahmane Ourdi. Built with intention.</small></div></section>
+        <section id="contact" className="contact-section page-section"><div><p className="eyebrow">HAVE A PROJECT IN MIND? <i /></p><h2>Let&apos;s make something<br /><em>meaningful.</em></h2><a className="primary-button" href="mailto:semlalibrahim34@gmail.com">START A CONVERSATION <AiOutlineSend /></a></div><div className="contact-meta"><span>BS // SYSTEM READY</span><strong>Available for meaningful collaborations</strong><a href="mailto:semlalibrahim34@gmail.com">semlalibrahim34@gmail.com</a><small>© 2026 Brahim Semlali. Built with intention.</small></div></section>
       </main>
 
       {terminalOpen && (
