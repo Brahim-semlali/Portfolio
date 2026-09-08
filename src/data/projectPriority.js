@@ -45,7 +45,7 @@ export const PROJECT_OVERRIDES = {
       en: "Gamified web app to learn business strategy (VRIO, SWOT) with points, badges, interactive quizzes and JWT authentication.",
     },
     demoLink: "https://learn-strategies.vercel.app",
-    stack: ["React", "Next.js", "TypeScript", "MongoDB"],
+    stack: ["React", "TypeScript", "MongoDB"],
   },
   "Vactis-Backend": {
     title: { fr: "Vactis — Backend", en: "Vactis — Backend" },

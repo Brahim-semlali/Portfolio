@@ -1,7 +1,6 @@
 import React from "react";
 import {
   SiReact,
-  SiNextdotjs,
   SiTypescript,
   SiJavascript,
   SiPython,
@@ -26,7 +25,6 @@ import { DiDatabase } from "react-icons/di";
 export const ICONS = {
   React: { icon: SiReact, color: "#61DAFB" },
   "React.js": { icon: SiReact, color: "#61DAFB" },
-  "Next.js": { icon: SiNextdotjs, color: "#E2E8F0" },
   TypeScript: { icon: SiTypescript, color: "#3178C6" },
   JavaScript: { icon: SiJavascript, color: "#F7DF1E" },
   Python: { icon: SiPython, color: "#3776AB" },

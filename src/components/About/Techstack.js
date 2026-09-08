@@ -4,7 +4,6 @@ import {
   SiDjango,
   SiFastapi,
   SiSpringboot,
-  SiNextdotjs,
   SiBootstrap,
 } from "react-icons/si";
 import C from "../../Assets/TechIcons/C++.svg";
@@ -41,10 +40,6 @@ function Techstack() {
       <Col xs={4} md={2} className="tech-icons">
         <img src={ReactIcon} alt="react" />
         <div className="tech-icons-text">React.js</div>
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <SiNextdotjs fontSize={"24px"} />
-        <div className="tech-icons-text">Next.js</div>
       </Col>
       <Col xs={4} md={2} className="tech-icons">
         <img src={Typescript} alt="typescript" />

@@ -50,7 +50,7 @@ const expertise = [
 
 const techGroups = {
   Languages: ["Java", "JavaScript", "Python", "C / C++", "TypeScript", "SQL"],
-  Frameworks: ["React.js", "Next.js", "Django REST", "Spring Boot", "FastAPI", "Bootstrap"],
+  Frameworks: ["React.js", "Django REST", "Spring Boot", "FastAPI", "Bootstrap"],
   Databases: ["PostgreSQL", "MySQL", "MongoDB", "PostGIS"],
   "Data & AI": ["Machine Learning", "LangChain", "RAG", "Pandas", "Data Analysis"],
   DevOps: ["Docker", "Git / GitHub", "CI/CD", "Postman", "REST API"],
@@ -80,7 +80,6 @@ const techLogos = {
   TypeScript: TypescriptLogo,
   SQL: SqlLogo,
   "React.js": techIconDefinitions["React.js"],
-  "Next.js": techIconDefinitions["Next.js"],
   "Django REST": techIconDefinitions["Django REST Framework"],
   "Spring Boot": techIconDefinitions["Spring Boot"],
   FastAPI: techIconDefinitions.FastAPI,
