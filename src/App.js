@@ -3,6 +3,7 @@ import Preloader from "./components/Pre";
 import AnimatedHeroBackground from "./components/AnimatedHeroBackground";
 import PortfolioExperience from "./components/PortfolioExperience";
 import "./App.css";
+import Admin from "./components/Admin/Admin";
 
 function App() {
   const [load, upadateLoad] = useState(true);
@@ -21,6 +22,8 @@ function App() {
 
     return () => clearTimeout(timer);
   }, []);
+
+  if (window.location.pathname.startsWith("/admin")) return <Admin />;
 
   return (
       <>
