@@ -35,6 +35,7 @@ import Github from "./About/Github";
 import Leetcode from "./About/Leetcode";
 import certifications from "../data/certifications";
 import { PROJECT_OVERRIDES, localizedText } from "../data/projectPriority";
+import { getPortfolioData, subscribeToPortfolioData } from "../data/portfolioStore";
 import { backgrounds, sectionToIndex } from "./AnimatedHeroBackground";
 import { ICONS as techIconDefinitions } from "./Projects/TechLogos";
 import { useLanguage } from "../i18n/LanguageContext";
@@ -114,7 +115,16 @@ const certificateImages = {
   "research-qmul": researchCertificate,
 };
 
-function TechnologyPanel({ activeTech, setActiveTech, lang, techGroupLabels, description }) {
+function TechnologyLogo({ tech, customLogos }) {
+  if (customLogos?.[tech]) return <img src={customLogos[tech]} alt={`${tech} logo`} />;
+  const logo = techLogos[tech];
+  const Logo = logo?.icon;
+  if (typeof logo === "string") return <img src={logo} alt={`${tech} logo`} />;
+  if (Logo) return <Logo style={{ color: logo.color }} aria-label={`${tech} logo`} />;
+  return tech.slice(0, 2).toUpperCase();
+}
+
+function TechnologyPanel({ activeTech, setActiveTech, lang, techGroupLabels, description, customLogos }) {
   return (
     <section className="combined-tech-section page-section">
       <div className="combined-tech-panel">
@@ -126,26 +136,27 @@ function TechnologyPanel({ activeTech, setActiveTech, lang, techGroupLabels, des
           <p>{description}</p>
         </div>
         <div className="tech-tabs">{Object.keys(techGroups).map((group, index) => <button className={activeTech === group ? "active" : ""} key={group} onClick={() => setActiveTech(group)}><span>0{index + 1}</span>{techGroupLabels[group] || group}</button>)}</div>
-        <div className="tech-grid">{techGroups[activeTech].map((tech, index) => { const logo = techLogos[tech]; const Logo = logo?.icon; return <article className="tech-card" key={tech} style={{ "--card-index": index }}><div className="tech-symbol">{typeof logo === "string" ? <img src={logo} alt={`${tech} logo`} /> : Logo ? <Logo style={{ color: logo.color }} aria-label={`${tech} logo`} /> : tech.slice(0, 2).toUpperCase()}</div><h3>{tech}</h3><p>{techGroupLabels[activeTech] || activeTech}</p><span>0{index + 1}</span></article>; })}</div>
+        <div className="tech-grid">{techGroups[activeTech].map((tech, index) => <article className="tech-card" key={tech} style={{ "--card-index": index }}><div className="tech-symbol"><TechnologyLogo tech={tech} customLogos={customLogos} /></div><h3>{tech}</h3><p>{techGroupLabels[activeTech] || activeTech}</p><span>0{index + 1}</span></article>)}</div>
       </div>
     </section>
   );
 }
 
-function ExpertiseTechnologyPanel({ localizedExpertise, expertise, activeTech, setActiveTech, lang, techGroupLabels, description, title, copy }) {
+function ExpertiseTechnologyPanel({ localizedExpertise, expertise, activeTech, setActiveTech, lang, techGroupLabels, description, title, copy, customLogos }) {
   return (
     <section id="expertise" className="combined-expertise-section page-section">
       <div className="section-label"><span>{lang === "en" ? "WHAT I DO" : "CE QUE JE FAIS"}</span><i /></div>
       <h2 className="display-title">{title}</h2>
       <p className="muted-copy">{copy}</p>
       <div className="expertise-grid">{localizedExpertise.map((item, index) => <article className="expertise-card" key={item.title}><div className="card-top"><span className="card-icon">{expertise[index].icon}</span><b>0{index + 1}</b></div><h3>{item.title}</h3><p>{item.description}</p><div className="expertise-tools">{expertise[index].tools.map(([ToolIcon, color], toolIndex) => <ToolIcon key={`${item.title}-${toolIndex}`} style={{ color }} title={item.tags.split(" · ")[toolIndex]} />)}</div><div className="card-tags">{item.tags.split(" · ").map((tag) => <span key={tag}>{tag}</span>)}</div></article>)}</div>
-      <TechnologyPanel activeTech={activeTech} setActiveTech={setActiveTech} lang={lang} techGroupLabels={techGroupLabels} description={description} />
+      <TechnologyPanel activeTech={activeTech} setActiveTech={setActiveTech} lang={lang} techGroupLabels={techGroupLabels} description={description} customLogos={customLogos} />
     </section>
   );
 }
 
 function PortfolioExperience({ activeIndex = 0, setActiveIndex, selectPortrait }) {
   const { lang, setLang, t } = useLanguage();
+  const [portfolioData, setPortfolioData] = useState(getPortfolioData);
   const terminalHelp = lang === "en"
     ? "Available commands:\n\n  whoami        - View user identity\n  role          - View engineering specialization\n  expertise     - View core technical domains\n  status        - View system status\n  home          - Navigate to Home\n  about         - Navigate to About section\n  education     - Navigate to Education section\n  experience    - Navigate to Experience section\n  projects      - Navigate to Projects section\n  certifications - Navigate to Certifications\n  clear         - Clear terminal screen"
     : "Commandes disponibles :\n\n  whoami        - Voir l'identité utilisateur\n  role          - Voir la spécialisation\n  expertise     - Voir les domaines techniques\n  status        - Voir l'état du système\n  home          - Aller à l'accueil\n  about         - Ouvrir la section À propos\n  education     - Ouvrir la section Formation\n  experience    - Ouvrir la section Expérience\n  projects      - Ouvrir la section Projets\n  certifications - Ouvrir les certifications\n  clear         - Effacer l'écran du terminal";
@@ -247,14 +258,19 @@ function PortfolioExperience({ activeIndex = 0, setActiveIndex, selectPortrait }
   ]);
 
   useEffect(() => {
-    axios.get("https://api.github.com/users/Brahim-semlali/repos", { params: { per_page: 100, sort: "updated" } })
+    return subscribeToPortfolioData(setPortfolioData);
+  }, []);
+
+  useEffect(() => {
+    axios.get(`https://api.github.com/users/${portfolioData.projects.githubUser}/repos`, { params: { per_page: 100, sort: "updated" } })
       .then(({ data }) => {
-        const repos = data.filter((repo) => FEATURED_REPOSITORIES.includes(repo.name));
-        repos.sort((a, b) => FEATURED_REPOSITORIES.indexOf(a.name) - FEATURED_REPOSITORIES.indexOf(b.name));
+        const featuredRepositories = portfolioData.projects.featuredRepositories || FEATURED_REPOSITORIES;
+        const repos = data.filter((repo) => featuredRepositories.includes(repo.name));
+        repos.sort((a, b) => featuredRepositories.indexOf(a.name) - featuredRepositories.indexOf(b.name));
         setGithubProjects(repos);
       })
       .catch(() => setGithubProjects([]));
-  }, []);
+  }, [portfolioData.projects.githubUser, portfolioData.projects.featuredRepositories]);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -296,17 +312,30 @@ function PortfolioExperience({ activeIndex = 0, setActiveIndex, selectPortrait }
   };
   const displayProjects = githubProjects.length
     ? githubProjects.map((repo, index) => {
-      const override = PROJECT_OVERRIDES[repo.name] || {};
+      const override = { ...(PROJECT_OVERRIDES[repo.name] || {}), ...(portfolioData.projects.overrides?.[repo.name] || {}) };
+      const image = override.imageUrl || override.logoUrl || [blogImage, chatifyImage, leafImage][index % 3];
+      const tags = override.stack || [repo.language].filter(Boolean);
       return {
-        image: [blogImage, chatifyImage, leafImage][index % 3],
+        image,
+        videoUrl: override.videoUrl,
+        demoUrl: override.demoUrl || override.demoLink,
         title: localizedText(override.title, lang, repo.name.replace(/[_-]/g, " ")),
-        description: repo.description || localizedText(override.description, lang, lang === "en" ? "Project available on my GitHub profile." : "Projet disponible sur mon profil GitHub."),
-        tags: override.stack || [repo.language].filter(Boolean),
-        link: repo.html_url,
+        description: localizedText(override.description, lang, repo.description || (lang === "en" ? "Project available on my GitHub profile." : "Projet disponible sur mon profil GitHub.")),
+        tags: Array.isArray(tags) ? tags : String(tags).split(",").map((tag) => tag.trim()).filter(Boolean),
+        link: override.demoUrl || override.demoLink || repo.html_url,
+        githubLink: repo.html_url,
       };
     })
     : localizedProjects.map((project) => ({ ...project, link: "https://github.com/Brahim-semlali" }));
-  const visibleProjects = [...displayProjects, otherProjectsCard];
+  const customProjects = (portfolioData.projects.custom || []).map((project) => ({
+    ...project,
+    image: project.imageUrl || project.logoUrl || null,
+    videoUrl: project.videoUrl,
+    tags: Array.isArray(project.tags) ? project.tags : String(project.tags || "").split(",").map((tag) => tag.trim()).filter(Boolean),
+    link: project.demoUrl || project.repoUrl || "#",
+    githubLink: project.repoUrl,
+  }));
+  const visibleProjects = [...displayProjects, ...customProjects, otherProjectsCard];
 
   return (
     <div className="portfolio-shell">
@@ -352,11 +381,11 @@ function PortfolioExperience({ activeIndex = 0, setActiveIndex, selectPortrait }
 
         <section id="education" className="page-section education-section"><div className="education-panel"><div className="section-label"><span>{content.educationTag}</span><i /></div><h2 className="display-title education-title">{lang === "en" ? "Education" : "Formation"}</h2><div className="education-list-new"><article><b>2025 – 2027</b><h3>Master {lang === "en" ? "Information Systems Engineering" : "Ingénierie des Systèmes d&apos;Information"}</h3><p>Faculté des Sciences Semlalia</p></article><article><b>2024 – 2025</b><h3>{lang === "en" ? "Professional Bachelor in Computer Engineering" : "Licence Professionnelle en Génie Informatique"}</h3><p>FPT Taroudant · {lang === "en" ? "Good honours" : "Mention Bien"}</p></article><article><b>2022 – 2024</b><h3>{lang === "en" ? "University Diploma in Computer Engineering" : "DEUP en Génie Informatique"}</h3><p>FPT Taroudant · {lang === "en" ? "Good standing" : "Mention Assez Bien"}</p></article></div><p className="language-line"><strong>{lang === "en" ? "Languages:" : "Langues :"}</strong> {lang === "en" ? "Arabic (native), French (good), English (intermediate)." : "Arabe (langue maternelle), Français (bon niveau), Anglais (intermédiaire)."}</p></div></section>
 
-        <ExpertiseTechnologyPanel localizedExpertise={localizedExpertise} expertise={expertise} activeTech={activeTech} setActiveTech={setActiveTech} lang={lang} techGroupLabels={techGroupLabels} description={content.dossierCopy} title={content.expertiseTitle} copy={content.expertiseCopy} />
+        <ExpertiseTechnologyPanel localizedExpertise={localizedExpertise} expertise={expertise} activeTech={activeTech} setActiveTech={setActiveTech} lang={lang} techGroupLabels={techGroupLabels} description={content.dossierCopy} title={content.expertiseTitle} copy={content.expertiseCopy} customLogos={portfolioData.skills.logos} />
 
         <section id="experience" className="page-section experience-section"><div className="section-label"><span>{content.experienceTag}</span><i /></div><h2 className="display-title">{content.experienceTitle}</h2><div className="timeline">{[...experienceData].reverse().map((item, index) => <article className={`timeline-item ${index % 2 ? "right" : "left"}`} key={item.id}><div className="timeline-dot"><BsBriefcase /></div><div className="timeline-date">{item.period}</div><div className="experience-card"><span className="card-number">0{index + 1}</span><p className="orange-label">{item.location}</p><h3>{item.role}</h3><h4>{item.company}</h4><p>{item.shortDescription}</p><p>{item.fullDescription}</p><ul>{item.tasks.map((task) => <li key={task}>{task}</li>)}</ul><div className="tag-list">{item.stack.map((tag) => <span key={tag}>{tag}</span>)}</div></div></article>)}</div></section>
 
-        <section id="projects" className="page-section projects-section"><div className="center-heading"><p className="eyebrow">{content.projectsTag} <i /></p><h2 className="display-title">{content.projectsTitle}</h2><p className="muted-copy">{content.projectsCopy}</p></div><div className="projects-grid">{visibleProjects.map((project, index) => <article className={`project-card ${project.isOtherProjects ? "other-projects-card" : ""}`} key={project.title}><div className="project-image">{project.image ? <img src={project.image} alt="" /> : <AiFillGithub aria-hidden="true" />}<span>0{index + 1}</span></div><div className="project-content"><h3>{project.title}</h3><p>{project.description}</p><div className="tag-list">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div><a className="project-link" href={project.link} target="_blank" rel="noreferrer">{lang === "en" ? "VIEW ON GITHUB" : "VOIR SUR GITHUB"} <AiOutlineArrowDown /></a></div></article>)}</div></section>
+        <section id="projects" className="page-section projects-section"><div className="center-heading"><p className="eyebrow">{content.projectsTag} <i /></p><h2 className="display-title">{content.projectsTitle}</h2><p className="muted-copy">{content.projectsCopy}</p></div><div className="projects-grid">{visibleProjects.map((project, index) => <article className={`project-card ${project.isOtherProjects ? "other-projects-card" : ""}`} key={`${project.title}-${index}`}><div className="project-image">{project.videoUrl ? <video src={project.videoUrl} controls preload="metadata" /> : project.image ? <img src={project.image} alt={`${project.title} logo`} /> : <AiFillGithub aria-hidden="true" />}<span>0{index + 1}</span></div><div className="project-content"><h3>{project.title}</h3><p>{project.description}</p><div className="tag-list">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div><div className="project-links"><a className="project-link" href={project.link} target="_blank" rel="noreferrer">{project.demoUrl ? (lang === "en" ? "VIEW DEMO" : "VOIR LA DÉMO") : (lang === "en" ? "VIEW ON GITHUB" : "VOIR SUR GITHUB")} <AiOutlineArrowDown /></a>{project.githubLink && project.githubLink !== project.link && <a className="project-link" href={project.githubLink} target="_blank" rel="noreferrer">GitHub <AiFillGithub /></a>}</div></div></article>)}</div></section>
 
         <section id="certifications" className="page-section certifications-section"><div className="section-label"><span>{content.certificationsTag}</span><i /></div><h2 className="display-title">{content.certificationsTitle}</h2><div className="cert-grid">{certifications.map((cert, index) => <article className="cert-card" key={cert.id}><div className="cert-image-wrap">{certificateImages[cert.id] ? <img src={certificateImages[cert.id]} alt={`${cert.title} certificate`} /> : <div className="cert-image-fallback"><AiOutlineCheckCircle /></div>}<span className="card-number">0{index + 1}</span></div><div className="cert-content"><p className="orange-label">{cert.issuer}</p><h3>{cert.title}</h3><p>{cert.year} · {cert.description}</p><div className="tag-list">{cert.skills.map((skill) => <span key={skill}>{skill}</span>)}</div><a href={cert.verifyUrl} target="_blank" rel="noreferrer">{lang === "en" ? "VERIFY CREDENTIAL" : "VÉRIFIER LE CERTIFICAT"} <AiOutlineArrowDown /></a></div></article>)}</div></section>
 
